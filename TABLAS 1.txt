@@ -1,0 +1,30 @@
+CREATE TABLE PARTICIPANTE (
+    clave INT NOT NULL UNIQUE,
+    nombre VARCHAR(30) NOT NULL,
+    apellido1 VARCHAR(30) NOT NULL,
+    apellido2 VARCHAR(30),
+    correo VARCHAR(50) NOT NULL UNIQUE,
+    trabajo VARCHAR(80) ,
+    pais CHAR(2) NOT NULL,
+    
+    CONSTRAINT CLAVE_PK PRIMARY KEY (clave),
+    CONSTRAINT rango_CHK CHECK (rango between 100000 and 999999),
+    CONSTRAINT pais_FK FOREIGN KEY (pais) REFERENCES PAIS
+);
+
+CREATE TABLE GRUPO {
+    codigo VARCHAR(15) NOT NULL UNIQUE,
+    fecha_de_inicio DATA NOT NULL,
+    costo NUMBER(6,2) NOT NULL,
+    minimo_de_participantes NUMBER(2),
+    curso VARCHAR(15) NOT NULL,
+    instructor VARCHAR(13),
+    
+    CONSTRAINT CODIGO_PK PRIMARY KEY (codigo),
+    CONSTRAINT costo_CHK CHECK (costo >= 0),
+    CONSTRAINT minimo_de_participantes (costo >= 5),
+    CONSTRAINT curso_PK FOREIGN KEY (curso) REFERENCES CURSO,
+    CONSTRAINT instructor FOREIGN KEY (pais) REFERENCES PAIS
+}
+
+mole 
