@@ -1,0 +1,24 @@
+CREATE TABLE FACTURA (
+
+        NUMERO              VARCHAR2(6)         NOT NULL  UNIQUE,
+        FECHA                 DATE                        NOT NULL,
+        SUBTOTAL          NUMBER(10, 2)       NOT NULL,
+        IVA                       NUMBER(10, 2)       NOT NULL,
+        TOTAL                 NUMBER(10,2)        NOT NULL,
+        
+        
+        
+        CONSTRAINT       IVA_CHK                  CHECK (IVA >= 0),
+        CONSTRAINT      TOTAL_CHK             CHECK (TOTAL >=0 AND TOTAL > IVA)
+        
+);
+
+CREATE TABLE PRODUCTO(
+
+        CODIGO                       VARCHAR(10)        NOT NULL  UNIQUE,
+        DESCRIPCION              VARCHAR(10)        NOT NULL, 
+        PRECIO_UNITARIO       NUMBER(10,2)      NOT NULL,
+        
+        CONSTRAINT              PRECIO_UNITARIO_CHK         CHECK(PRECIO_UNITARIO >=0)
+    
+);
