@@ -54,15 +54,20 @@ END pr_elimina_producto;
 
 //consulta producto
 
-CREATE OR REPLACE PROCEDURE pr_consulta_producto(
-    p_codigo IN PRODUCTO.CODIGO%TYPE,
-    p_descripcion OUT PRODUCTO.DESCRIPCION%TYPE,
-    p_precio_unitario OUT PRODUCTO.PRECIO_UNITARIO%TYPE
-)
+CREATE OR REPLACE FUNCTION fn_consulta_producto(p_codigo PRODUCTO.CODIGO%TYPE)
+    RETURN VARCHAR2
 IS
+    reg PRODUCTO%ROWTYPE;
+    registro VARCHAR2(200);
 BEGIN
-    SELECT DESCRIPCION, PRECIO_UNITARIO
-    INTO p_descripcion, p_precio_unitario
+    SELECT * INTO reg
     FROM PRODUCTO
     WHERE CODIGO = p_codigo;
-END pr_consulta_producto;
+    
+    registro := reg.CODIGO || '  ' || 
+                reg.DESCRIPCION || '  ' || 
+                TO_CHAR(reg.PRECIO_UNITARIO, '9999.99');
+    
+    RETURN registro;
+END fn_consulta_producto;
+
