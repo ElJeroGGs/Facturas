@@ -1,4 +1,3 @@
-
 CREATE OR REPLACE PROCEDURE pr_registrar_clientes (
     rRUT IN CLIENTE.RUT%TYPE,
     rNOMBRE IN CLIENTE.NOMBRE%TYPE,
@@ -98,12 +97,6 @@ END pr_elimina_cliente;
 
 ------------------------------------------------------------------------------------------------------------
 
-//listado de clientes v1
-
-SELECT RUT, NOMBRE, APELLIDO1, APELLIDO2, DOMICILIO, TELEFONO FROM CLIENTE;
-
-//listado de clientes v2
-
 create or replace FUNCTION fn_consulta_cliente(rutEmpresa CLIENTE.RUT%TYPE)
         RETURN VARCHAR2
         IS
@@ -118,12 +111,68 @@ BEGIN
     registro := reg.rut || 
                                 '  ' || reg.nombre ||
                                 '  ' || reg.apellido1 ||
+                                '  ' || reg.apellido2 ||
                                 '  ' || reg.domicilio ||
                                 '  ' || TO_CHAR(reg.telefono)
                                 ;
     RETURN registro;
 END fn_consulta_cliente;
 
+------------------------------------------------------------------------------------------------------------
+
+CREATE OR REPLACE FUNCTION fn_listado_tClientes
+    RETURN VARCHAR2
+IS
+    reg      CLIENTE%ROWTYPE;
+    registro VARCHAR(200);
+BEGIN
+    SELECT *
+    INTO reg
+    FROM CLIENTE;
+
+    registro := reg.rut || 
+                '  ' || reg.nombre ||
+                '  ' || reg.apellido1 ||
+                '  ' || reg.apellido2 ||
+                '  ' || reg.domicilio ||
+                '  ' || reg.telefono;
+
+    RETURN registro;
+END fn_listado_tClientes;
+
+------------------------------------------------------------------------------------------------------------
+
+       CREATE OR REPLACE PROCEDURE pr_registrar_factura(codigoPR CARRITO.CODIGO_PRODUCTO%TYPE,cantidadPR CARRITO.CANTIDAD_PRODUCTO%TYPE)
+        IS
+        BEGIN 
+            
+            for f in reverse 1..cantidadPR loop
+                    INSERT INTO CARRITO (CODIGO_PRODUCTO, CANTIDAD_PRODUCTO)
+                    VALUES (codigoPR, cantidadPR);
+            end loop;
+        
+        END pr_registrar_factura;
+
+------------------------------------------------------------------------------------------------------------
+
+       CREATE OR REPLACE PROCEDURE pr_calcular_totales
+        IS   
+        costoFinal NUMBER;
+        costo NUMBER;
+        iva NUMBER;
+        cod VARCHAR2(10);
+        
+        BEGIN 
+            SELECT PRECIO_UNITARIO, CODIGO
+            INTO costo, cod
+            FROM PRODUCTO
+            WHERE CODIGO = (SELECT CODIGO_PRODUCTO
+                                                            FROM CARRITO
+                                                            WHERE CODIGO_PRODUCTO = CODIGO);
+                                                            
+        
+        
+        END pr_calcular_totales;
 
 ------------------------------------------------------------------------------------------------------------
 
