@@ -97,6 +97,12 @@ END pr_elimina_cliente;
 
 ------------------------------------------------------------------------------------------------------------
 
+//listado de clientes v1
+
+SELECT RUT, NOMBRE, APELLIDO1, APELLIDO2, DOMICILIO, TELEFONO FROM CLIENTE;
+
+//listado de clientes v2
+
 create or replace FUNCTION fn_consulta_cliente(rutEmpresa CLIENTE.RUT%TYPE)
         RETURN VARCHAR2
         IS

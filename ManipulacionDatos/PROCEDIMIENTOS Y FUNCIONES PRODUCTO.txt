@@ -71,6 +71,12 @@ BEGIN
     RETURN registro;
 END fn_consulta_producto;
 
+//listado de productos v1
+
+SELECT CODIGO, DESCRIPCION, PRECIO_UNITARIO FROM PRODUCTO; 
+
+//listado de productos v2 
+
 CREATE OR REPLACE PROCEDURE pr_listado_productos
 IS
     CURSOR c_productos IS
