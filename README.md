@@ -11,17 +11,16 @@ Como primera etapa y como parte del sistema de información, se modelará, dise�
 </p>
 
 
-* ### Crear la base de datos incluyendo restricciones de llaves y columnas, de acuerdo con el diseño obtenido
-* ### Registrar clientes. Convertir automáticamente en mayúsculas los datos de tipo cadena ingresados
-* ### Modificar, eliminar y consultar clientes
-* ### Registrar productos. Convertir automáticamente en mayúsculas los datos de tipo cadena ingresados
-* ### Modificar, eliminar y consultar productos o artículos
-* ### Crear un listado de todos los clientes
-* ### Crear un listado de todos los artículos o productos
-* ### Registrar facturas con sus ventas correspondientes. Para evitar errores de cálculo, cada que se haga una venta, se deberá calcular automáticamente y actualizar en las tablas correspondientes el monto total de la venta, el subtotal, iva y gran total de la factura
-* ### Recupera los datos de facturas de forma individual (incluye los datos de la factura, cliente, productos y ventas)
-* ### Consulta de cantidad de productos o artículos vendidos a través de una factura determinada.
-* ### Generación de facturas "listas" para impresión con base en el formato siguiente
+- [x] Crear la base de datos incluyendo restricciones de llaves y columnas, de acuerdo con el diseño obtenido
+- [ ] Registrar clientes. Convertir automáticamente en mayúsculas los datos de tipo cadena ingresados
+- [ ] Modificar, eliminar y consultar clientes
+- [ ] Registrar productos. Convertir automáticamente en mayúsculas los datos de tipo cadena ingresados
+- [ ] Modificar, eliminar y consultar productos o artículos
+- [ ] Crear un listado de todos los clientes
+- [ ] Crear un listado de todos los artículos o productos
+- [ ] Registrar facturas con sus ventas correspondientes. Para evitar errores de cálculo, cada que se haga una venta, se deberá calcular automáticamente y actualizar en las tablas correspondientes el monto total de la venta, el subtotal, iva y gran total de la factura
+- [ ] Recupera los datos de facturas de forma individual (incluye los datos de la factura, cliente, productos y ventas)
+- [ ] Consulta de cantidad de productos o artículos vendidos a través de una factura determinada* ### - [x] Crear la base de datos incluyendo restricciones de llaves y columnas, de acuerdo con el diseño obtenido
 
     LA COMPU  
     Factura:   [ A2345 ]  
@@ -45,9 +44,9 @@ Como primera etapa y como parte del sistema de información, se modelará, dise�
     IVA: 1,687.80  
     Total: $12,939.79  
                                          
-* ### Aplicación cliente-servidor (Java-Oracle) que incluya el CRUD para al menos una tabla, y la generación de la factura (punto 11)
+- [ ] Aplicación cliente-servidor (Java-Oracle) que incluya el CRUD para al menos una tabla, y la generación de la factura (punto 11)
 
-## El modelo lógito a utilizar es el siguiente
+## El modelo lógico a utilizar es el siguiente
 <p align="center">
     <img src="https://github.com/ElJeroGGs/Facturas/assets/148837954/03293b0b-e411-4f38-a655-28292c1d6e19" />
 </p>
