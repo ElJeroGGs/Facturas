@@ -1,0 +1,15 @@
+//Sugerencia: Agregar serialización al programa
+
+//Procedimiento para agregar un producto
+
+CREATE OR REPLACE 
+    PROCEDURE pr_inserta_producto(r IN PRODUCTO%ROWTYPE ) 
+    IS
+    BEGIN
+        INSERT INTO PRODUCTO (codigo, 
+                descripcion, 
+                precio_unitario)
+       VALUES(r.codigo, 
+                r.descripcion, 
+                r.precio_unitario);
+END pr_inserta_producto;
