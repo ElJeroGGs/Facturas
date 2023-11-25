@@ -46,7 +46,7 @@ Como primera etapa y como parte del sistema de información, se modelará, dise�
     IVA: 1,687.80  
     Total: $12,939.79  
                                          
-- [ ] Aplicación cliente-servidor (Java-Oracle) que incluya el CRUD para al menos una tabla, y la generación de la factura (punto 11)
+- [ ] Aplicación cliente-servidor (Java-Oracle) que incluya el CRUD para al menos una tabla, y la generación de la factura 
 
 ## El modelo lógico a utilizar es el siguiente
 <p align="center">
