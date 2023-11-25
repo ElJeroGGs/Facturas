@@ -33,3 +33,12 @@ BEGIN
     SET TOTAL = v_total_venta
     WHERE ID = p_venta.ID;
 END agregar_venta;
+
+//Generar factura vacia
+
+CREATE OR REPLACE PROCEDURE generar_factura(p_numero_factura VARCHAR2, p_fecha DATE, p_iva NUMBER) IS
+BEGIN
+    -- Insertar la factura en la tabla FACTURA
+    INSERT INTO FACTURA (NUMERO, FECHA, SUBTOTAL, IVA, TOTAL)
+    VALUES (p_numero_factura, p_fecha, 0, p_iva, 0);
+END generar_factura;
