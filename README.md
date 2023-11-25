@@ -6,8 +6,10 @@ Actualmente, las facturas (Fig. 1) se solicitan a la imprenta, quien las entrega
 
 ## Fig. 1. Ejemplo de Factura sin datos
 Como primera etapa y como parte del sistema de información, se modelará, diseñará e implementará la base de datos, misma que permitirá a la empresa realizar las siguientes actividades mediante programas o scripts.
+<p align="center">
+    <img src="https://github.com/ElJeroGGs/Facturas/assets/148837954/a01e10f1-1455-4dd2-bb23-653c9a940a31" />
+</p>
 
-![image](https://github.com/ElJeroGGs/Facturas/assets/148837954/a01e10f1-1455-4dd2-bb23-653c9a940a31)
 
 * ### Crear la base de datos incluyendo restricciones de llaves y columnas, de acuerdo con el diseño obtenido
 * ### Registrar clientes. Convertir automáticamente en mayúsculas los datos de tipo cadena ingresados
@@ -46,7 +48,10 @@ Como primera etapa y como parte del sistema de información, se modelará, dise�
 * ### Aplicación cliente-servidor (Java-Oracle) que incluya el CRUD para al menos una tabla, y la generación de la factura (punto 11)
 
 ## El modelo lógito a utilizar es el siguiente
-![image](https://github.com/ElJeroGGs/Facturas/assets/148837954/03293b0b-e411-4f38-a655-28292c1d6e19)
+<p align="center">
+    <img src="https://github.com/ElJeroGGs/Facturas/assets/148837954/03293b0b-e411-4f38-a655-28292c1d6e19" />
+</p>
+
 
 
 III. Con base en los puntos anteriores, elabora los modelos lógico, relacional y físico de la base de datos y construye los programas o scripts que incluyan DDL, DML, transacciones y objetos para crear y manejar la base datos. Para cada una de los scripts, indica que actividad o necesidad apoya.
