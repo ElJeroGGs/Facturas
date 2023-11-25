@@ -1,0 +1,5 @@
+-- Test Case 1: Inserting a new sale
+BEGIN
+    agregar_venta(5, 100, 'P001', 'F001');
+    COMMIT;
+END;
