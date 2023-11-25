@@ -25,4 +25,14 @@ CREATE TABLE GRUPO {
     CONSTRAINT minimo_de_participantes (costo >= 5),
     CONSTRAINT curso_PK FOREIGN KEY (curso) REFERENCES CURSO,
     CONSTRAINT instructor FOREIGN KEY (pais) REFERENCES PAIS
+    
+    CREATE TABLE VENTA (
+    RUT varchar2(13) NOT NULL UNIQUE,
+    NOMBRE varchar2(50) NOT NULL,
+    APELLIDO1 varchar2(50) NOT NULL,
+    APELLIDO2 varchar2(50),
+    DOMICILIO varchar2(100) NOT NULL, 
+    TELEFONO NUMBER(10)
+);
+
 }
