@@ -71,3 +71,22 @@ BEGIN
     RETURN registro;
 END fn_consulta_producto;
 
+CREATE OR REPLACE PROCEDURE pr_listado_productos
+IS
+    CURSOR c_productos IS
+        SELECT * FROM PRODUCTO;
+    
+    reg c_productos%ROWTYPE;
+BEGIN
+    OPEN c_productos;
+    
+    LOOP
+        FETCH c_productos INTO reg;
+        EXIT WHEN c_productos%NOTFOUND;
+        
+        DBMS_OUTPUT.PUT_LINE(reg.CODIGO || '  ' || reg.DESCRIPCION || '  ' || TO_CHAR(reg.PRECIO_UNITARIO, '9999.99'));
+    END LOOP;
+    
+    CLOSE c_productos;
+END pr_listado_productos;
+
