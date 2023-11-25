@@ -1,0 +1,98 @@
+//Sugerencia: Agregar serialización al programa
+
+//Procedimiento para agregar un producto
+
+CREATE OR REPLACE 
+    PROCEDURE pr_inserta_producto(r IN PRODUCTO%ROWTYPE ) 
+    IS
+    BEGIN
+        INSERT INTO PRODUCTO (codigo, 
+                descripcion, 
+                precio_unitario)
+       VALUES(UPPER(r.codigo), 
+                UPPER(r.descripcion), 
+                r.precio_unitario);
+END pr_inserta_producto;
+
+//Este procedimiento actualiza el precio de un producto en la tabla PRODUCTO.
+
+CREATE OR REPLACE PROCEDURE pr_actualiza_precio_producto(
+    p_codigo IN PRODUCTO.CODIGO%TYPE,
+    p_precio_unitario IN PRODUCTO.PRECIO_UNITARIO%TYPE
+)
+IS
+BEGIN
+    UPDATE PRODUCTO
+    SET PRECIO_UNITARIO = p_precio_unitario
+    WHERE CODIGO = p_codigo;
+END pr_actualiza_precio_producto;
+
+
+//Este procedimiento actualiza la descripción de un producto en la tabla PRODUCTO.
+
+CREATE OR REPLACE PROCEDURE pr_actualiza_descripcion_producto(
+    p_codigo IN PRODUCTO.CODIGO%TYPE,
+    p_descripcion IN PRODUCTO.DESCRIPCION%TYPE
+)
+IS
+BEGIN
+    UPDATE PRODUCTO
+    SET DESCRIPCION = UPPER(p_descripcion)
+    WHERE CODIGO = p_codigo;
+END pr_actualiza_descripcion_producto;
+
+//elimina un producto
+
+CREATE OR REPLACE PROCEDURE pr_elimina_producto(
+    p_codigo IN PRODUCTO.CODIGO%TYPE
+)
+IS
+BEGIN
+    DELETE FROM PRODUCTO
+    WHERE CODIGO = p_codigo;
+END pr_elimina_producto;
+
+//consulta producto
+
+CREATE OR REPLACE FUNCTION fn_consulta_producto(p_codigo PRODUCTO.CODIGO%TYPE)
+    RETURN VARCHAR2
+IS
+    reg PRODUCTO%ROWTYPE;
+    registro VARCHAR2(200);
+BEGIN
+    SELECT * INTO reg
+    FROM PRODUCTO
+    WHERE CODIGO = p_codigo;
+    
+    registro := reg.CODIGO || '  ' || 
+                reg.DESCRIPCION || '  ' || 
+                TO_CHAR(reg.PRECIO_UNITARIO, '9999.99');
+    
+    RETURN registro;
+END fn_consulta_producto;
+
+//listado de productos v1
+
+SELECT CODIGO, DESCRIPCION, PRECIO_UNITARIO FROM PRODUCTO; 
+
+//listado de productos v2 
+
+CREATE OR REPLACE PROCEDURE pr_listado_productos
+IS
+    CURSOR c_productos IS
+        SELECT * FROM PRODUCTO;
+    
+    reg c_productos%ROWTYPE;
+BEGIN
+    OPEN c_productos;
+    
+    LOOP
+        FETCH c_productos INTO reg;
+        EXIT WHEN c_productos%NOTFOUND;
+        
+        DBMS_OUTPUT.PUT_LINE(reg.CODIGO || '  ' || reg.DESCRIPCION || '  ' || TO_CHAR(reg.PRECIO_UNITARIO, '9999.99'));
+    END LOOP;
+    
+    CLOSE c_productos;
+END pr_listado_productos;
+
