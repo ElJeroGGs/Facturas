@@ -9,7 +9,60 @@ CREATE OR REPLACE
         INSERT INTO PRODUCTO (codigo, 
                 descripcion, 
                 precio_unitario)
-       VALUES(r.codigo, 
-                r.descripcion, 
+       VALUES(UPPER(r.codigo), 
+                UPPER(r.descripcion), 
                 r.precio_unitario);
 END pr_inserta_producto;
+
+//Este procedimiento actualiza el precio de un producto en la tabla PRODUCTO.
+
+CREATE OR REPLACE PROCEDURE pr_actualiza_precio_producto(
+    p_codigo IN PRODUCTO.CODIGO%TYPE,
+    p_precio_unitario IN PRODUCTO.PRECIO_UNITARIO%TYPE
+)
+IS
+BEGIN
+    UPDATE PRODUCTO
+    SET PRECIO_UNITARIO = p_precio_unitario
+    WHERE CODIGO = p_codigo;
+END pr_actualiza_precio_producto;
+
+
+//Este procedimiento actualiza la descripción de un producto en la tabla PRODUCTO.
+
+CREATE OR REPLACE PROCEDURE pr_actualiza_descripcion_producto(
+    p_codigo IN PRODUCTO.CODIGO%TYPE,
+    p_descripcion IN PRODUCTO.DESCRIPCION%TYPE
+)
+IS
+BEGIN
+    UPDATE PRODUCTO
+    SET DESCRIPCION = UPPER(p_descripcion)
+    WHERE CODIGO = p_codigo;
+END pr_actualiza_descripcion_producto;
+
+//elimina un producto
+
+CREATE OR REPLACE PROCEDURE pr_elimina_producto(
+    p_codigo IN PRODUCTO.CODIGO%TYPE
+)
+IS
+BEGIN
+    DELETE FROM PRODUCTO
+    WHERE CODIGO = p_codigo;
+END pr_elimina_producto;
+
+//consulta producto
+
+CREATE OR REPLACE PROCEDURE pr_consulta_producto(
+    p_codigo IN PRODUCTO.CODIGO%TYPE,
+    p_descripcion OUT PRODUCTO.DESCRIPCION%TYPE,
+    p_precio_unitario OUT PRODUCTO.PRECIO_UNITARIO%TYPE
+)
+IS
+BEGIN
+    SELECT DESCRIPCION, PRECIO_UNITARIO
+    INTO p_descripcion, p_precio_unitario
+    FROM PRODUCTO
+    WHERE CODIGO = p_codigo;
+END pr_consulta_producto;

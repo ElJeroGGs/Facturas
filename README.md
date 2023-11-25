@@ -5,11 +5,12 @@ Actualmente, las facturas (Fig. 1) se solicitan a la imprenta, quien las entrega
 
 
 ## Fig. 1. Ejemplo de Factura sin datos
-Como primera etapa y como parte del sistema de información, se modelará, diseñará e implementará la base de datos, misma que permitirá a la empresa realizar las siguientes actividades mediante programas o scripts.
+
 <p align="center">
     <img src="https://github.com/ElJeroGGs/Facturas/assets/148837954/a01e10f1-1455-4dd2-bb23-653c9a940a31" />
 </p>
 
+Como primera etapa y como parte del sistema de información, se modelará, diseñará e implementará la base de datos, misma que permitirá a la empresa realizar las siguientes actividades mediante programas o scripts.
 
 - [x] Crear la base de datos incluyendo restricciones de llaves y columnas, de acuerdo con el diseño obtenido
 - [ ] Registrar clientes. Convertir automáticamente en mayúsculas los datos de tipo cadena ingresados
@@ -20,7 +21,8 @@ Como primera etapa y como parte del sistema de información, se modelará, dise�
 - [ ] Crear un listado de todos los artículos o productos
 - [ ] Registrar facturas con sus ventas correspondientes. Para evitar errores de cálculo, cada que se haga una venta, se deberá calcular automáticamente y actualizar en las tablas correspondientes el monto total de la venta, el subtotal, iva y gran total de la factura
 - [ ] Recupera los datos de facturas de forma individual (incluye los datos de la factura, cliente, productos y ventas)
-- [ ] Consulta de cantidad de productos o artículos vendidos a través de una factura determinada* ### - [x] Crear la base de datos incluyendo restricciones de llaves y columnas, de acuerdo con el diseño obtenido
+- [ ] Consulta de cantidad de productos o artículos vendidos a través de una factura determinada
+- [ ] Generación de facturas "listas" para impresión con base en el formato siguiente
 
     LA COMPU  
     Factura:   [ A2345 ]  
