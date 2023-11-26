@@ -1,0 +1,76 @@
+DECLARE
+    r PRODUCTO%ROWTYPE;
+BEGIN
+    r.codigo := 'M5778';
+    r.descripcion := 'LAPTOP GAMER';
+    r.precio_unitario := '19999.00';
+    pr_inserta_producto(r);
+END;
+
+DECLARE
+    r PRODUCTO%ROWTYPE;
+BEGIN
+    r.codigo := 'H5328';
+    r.descripcion := 'TENIS GUCCI';
+    r.precio_unitario := '56999.00';
+    pr_inserta_producto(r);
+END;
+
+DECLARE
+    r PRODUCTO%ROWTYPE;
+BEGIN
+    r.codigo := 'H1428';
+    r.descripcion := 'IPHONE 12';
+    r.precio_unitario := '22999.00';
+    pr_inserta_producto(r);
+END;
+
+
+DECLARE
+    r PRODUCTO%ROWTYPE;
+BEGIN
+    r.codigo := 'P7830';
+    r.descripcion := 'PELUCHE';
+    r.precio_unitario := '499.00;
+    pr_inserta_producto(r);
+END;
+
+DECLARE
+    r PRODUCTO%ROWTYPE;
+BEGIN
+    r.codigo := 'C1234';
+    r.descripcion := 'CLARINETE';
+    r.precio_unitario := '100.00';
+    pr_inserta_producto(r);
+END;
+
+DECLARE
+    r PRODUCTO%ROWTYPE;
+BEGIN
+    r.codigo := 'M0143';
+    r.descripcion := 'MOCHILA';
+    r.precio_unitario := '399.00';
+    pr_inserta_producto(r);
+END;
+
+DECLARE
+    r PRODUCTO%ROWTYPE;
+BEGIN
+    r.codigo := 'T7921';
+    r.descripcion := 'TRAJE';
+    r.precio_unitario := '999.00';
+    pr_inserta_producto(r);
+END;
+
+DECLARE
+    r PRODUCTO%ROWTYPE;
+BEGIN
+    r.codigo := 'C4189';
+    r.descripcion := 'CALCULADORA';
+    r.precio_unitario := '499.00';
+    pr_inserta_producto(r);
+END;
+
+
+
+

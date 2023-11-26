@@ -1,0 +1,77 @@
+BEGIN
+    agregar_venta(15, 'PROD003', '123456','12345678-9'); 
+END;
+
+BEGIN
+    agregar_venta(1, 'H5328', 'A2345','ABCD123456789'); 
+END;
+
+BEGIN
+    agregar_venta(2, 'P7830', 'A2345','ABCD123456789'); 
+END;
+
+BEGIN
+    agregar_venta(1, 'H1428', 'A2345','ABCD123456789'); 
+END;
+
+BEGIN
+    agregar_venta(3, 'M0143', 'A2345','ABCD123456789'); 
+END;
+
+BEGIN
+    agregar_venta(1, 'M0143', 'A2300','MEH23HMCRRDA1'); 
+END;
+
+BEGIN
+    agregar_venta(2, 'M0143', 'A2300','MEH23HMCRRDA1'); 
+END;
+
+BEGIN
+    agregar_venta(4, 'P7830', 'A2300','MEH23HMCRRDA1'); 
+END;
+
+BEGIN
+    agregar_venta(1, 'C1234', 'A2300','MEH23HMCRRDA1'); 
+END;
+
+BEGIN
+    agregar_venta(2, 'T7921', 'A2301','RIK28YUKMHSX1'); 
+END;
+
+BEGIN
+    agregar_venta(10, 'C4189', 'A2301','RIK28YUKMHSX1'); 
+END;
+
+BEGIN
+    agregar_venta(2, 'M5778', 'A2490','UAN28JEVAHSR7'); 
+END;
+
+BEGIN
+    agregar_venta(5, 'H5328', 'A2490','UAN28JEVAHSR7'); 
+END;
+
+BEGIN
+    agregar_venta(3, 'H1428', 'A2490','UAN28JEVAHSR7'); 
+END;
+
+BEGIN
+    agregar_venta(30, 'P7830', 'A2490','UAN28JEVAHSR7'); 
+END;
+
+BEGIN
+    agregar_venta(2, 'C1234', 'A2490','UAN28JEVAHSR7'); 
+END;
+
+BEGIN
+    agregar_venta(15, 'T7921', 'A2490','UAN28JEVAHSR7'); 
+END;
+
+
+
+
+
+
+
+
+
+

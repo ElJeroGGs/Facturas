@@ -1,30 +1,7 @@
 CREATE OR REPLACE PROCEDURE agregar_venta(p_cantidad NUMBER, p_codigo_producto VARCHAR2, p_numero_factura VARCHAR2, p_rut_cliente VARCHAR2) IS
     v_precio_producto NUMBER;
     v_total NUMBER;
-BEGIN
-    -- Obtener el precio del producto
-    SELECT precio_unitario
-    INTO v_precio_producto
-    FROM PRODUCTO
-    WHERE CODIGO = p_codigo_producto;
-
-    -- Calcular el total
-    v_total := p_cantidad * v_precio_producto;
-
-    -- Insertar la venta en la tabla VENTA
-    INSERT INTO VENTA (CANTIDAD, TOTAL, CODIGO, NUMERO)
-    VALUES (p_cantidad, v_total, p_codigo_producto, p_numero_factura);
-END agregar_venta;
-
-
---Trigger para cuando se inserte una venta
-
-CREATE OR REPLACE TRIGGER venta_insert
-AFTER INSERT ON VENTA
-FOR EACH ROW
-DECLARE
     v_existe_factura NUMBER;
-    v_rutcliente FACTURA.RUT%TYPE;
     v_subtotal FACTURA.SUBTOTAL%TYPE;
     v_iva FACTURA.IVA%TYPE;
     v_total_factura NUMBER;
@@ -33,22 +10,30 @@ BEGIN
     SELECT COUNT(*)
     INTO v_existe_factura
     FROM FACTURA
-    WHERE NUMERO = FACTURA.NUMERO;
-
+    WHERE NUMERO = p_numero_factura;
+    
     -- Si no existe la factura, crear una nueva
     IF v_existe_factura = 0 THEN
-
-        generar_factura(:NEW.NUMERO, SYSDATE, 0.16, v_rutcliente);
+        generar_factura(p_numero_factura, SYSDATE, 0.16, p_rut_cliente);
     END IF;
+    
+    -- Obtener el precio del producto
+    SELECT precio_unitario
+    INTO v_precio_producto
+    FROM PRODUCTO
+    WHERE CODIGO = p_codigo_producto;
+
+    -- Calcular el total de la venta
+    v_total := p_cantidad * v_precio_producto;
 
     -- Obtener el subtotal y el IVA de la factura
     SELECT SUBTOTAL, IVA
     INTO v_subtotal, v_iva
     FROM FACTURA
-    WHERE NUMERO = :NEW.NUMERO;
+    WHERE NUMERO = p_numero_factura;
 
     -- Calcular el nuevo subtotal y el total de la factura
-    v_subtotal := v_subtotal + :NEW.TOTAL;
+    v_subtotal := v_subtotal + v_total;
     v_iva := v_subtotal * 0.16; -- Asumiendo que el IVA es del 16%
     v_total_factura := v_subtotal + v_iva;
 
@@ -57,9 +42,12 @@ BEGIN
     SET SUBTOTAL = v_subtotal,
         IVA = v_iva,
         TOTAL = v_total_factura
-    WHERE NUMERO = :NEW.NUMERO;
-    
-END;
+    WHERE NUMERO = p_numero_factura;
+
+    -- Insertar la venta en la tabla VENTA
+    INSERT INTO VENTA (CANTIDAD, TOTAL, CODIGO, NUMERO)
+    VALUES (p_cantidad, v_total, p_codigo_producto, p_numero_factura);
+END agregar_venta;
 
 CREATE OR REPLACE PROCEDURE generar_factura(p_numero_factura VARCHAR2, p_fecha DATE, p_iva NUMBER, c_rut VARCHAR2) IS
 BEGIN
