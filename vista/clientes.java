@@ -89,7 +89,6 @@ import java.sql.SQLException;
                         DefaultTableModel modeloTabla = new DefaultTableModel(columnNames, 0);
                         table.setModel(modeloTabla);
                         JScrollPane scrollPane = new JScrollPane(table); 
-
                         panelExtra.add(scrollPane);
                         add(panelExtra);
                         // Centrar la ventana en la pantalla

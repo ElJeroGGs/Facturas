@@ -23,7 +23,7 @@ public class controlclientes {
         
         try {
             
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM clientes");
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM CLIENTE");
             ResultSet resultSet = preparedStatement.executeQuery();
             int columnas = resultSet.getMetaData().getColumnCount();
 

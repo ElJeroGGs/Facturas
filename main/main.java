@@ -22,6 +22,8 @@ public class main {
         controlventanas.setProductos(productos);
         controlventanas.setFacturas(facturas);
 
+        controlclientes.verClientes(clientes.getTableModel());
+
         inicio.setVisible(true);
     }
 }
