@@ -13,7 +13,10 @@ public class main {
 
         // Establecer las relaciones entre clases
         inicio.setControlVentanas(controlventanas);
+
         clientes.setControlClientes(controlclientes);
+        
+        controlclientes.setClientesVentana(clientes);
         controlventanas.setInicio(inicio);
         controlventanas.setClientes(clientes);
         controlventanas.setProductos(productos);

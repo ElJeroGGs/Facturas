@@ -3,7 +3,9 @@ import javax.swing.JFrame;
 import java.awt.GridLayout;
 
 import control.controlclientes;
-import control.controlventanas; 
+import control.controlventanas;
+import modelo.connection;
+
 import java.awt.Font;
 import javax.swing.JLabel;
 import javax.swing.JButton;
@@ -11,8 +13,15 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 
                 public class clientes extends JFrame implements ActionListener {
@@ -20,6 +29,10 @@ import java.awt.event.ActionListener;
                     private controlventanas control;
                     private controlclientes controlclientes;
                     private JTable table;
+                    
+                    public DefaultTableModel getTableModel() {
+                        return (DefaultTableModel) table.getModel();
+                    }
                     
                     public clientes() {
                         // Configurar propiedades de la ventana
@@ -70,12 +83,12 @@ import java.awt.event.ActionListener;
                         // Configurar propiedades del panel extra
 
                         //tabla 
-                        String[] columnNames = {"RUT", "NOMBRE", "APELLIDO 1", "APELLIDO 2", "DOMICILIO", "TELEFONO"}; // Reemplaza con tus nombres de columnas
-                        Object[][] data = {
-                            {"Dato 1", "Dato 2", "Dato 3"," Dato 4", "Dato 5", "Dato 6"}
-                        };
-                        table = new JTable(data, columnNames);
-                        JScrollPane scrollPane = new JScrollPane(table); // Reemplaza con tus datos
+                        String[] columnNames = {"RUT", "NOMBRE", "APELLIDO 1", "APELLIDO 2", "DOMICILIO", "TELEFONO"};
+                  
+                        table = new JTable();
+                        DefaultTableModel modeloTabla = new DefaultTableModel(columnNames, 0);
+                        table.setModel(modeloTabla);
+                        JScrollPane scrollPane = new JScrollPane(table); 
 
                         panelExtra.add(scrollPane);
                         add(panelExtra);
@@ -90,6 +103,13 @@ import java.awt.event.ActionListener;
 
                     public void setControlClientes(controlclientes controlclientes) {
                         this.controlclientes = controlclientes;
+                    }
+
+
+                    public void pintaTabla(JTable tabla) {
+                        DefaultTableModel modeloTabla = (DefaultTableModel) tabla.getModel();
+                        controlclientes.verClientes(modeloTabla);
+                    
                     }
 
                     @Override

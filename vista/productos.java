@@ -64,4 +64,5 @@ public class productos extends JFrame {
         public void setControlVentanas(controlventanas control) {
             this.control = control;
         }
+        
     }
