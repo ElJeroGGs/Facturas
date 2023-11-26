@@ -1,4 +1,4 @@
-CREATE OR REPLACE PROCEDURE agregar_venta(p_cantidad NUMBER, p_codigo_producto VARCHAR2, p_numero_factura VARCHAR2) IS
+CREATE OR REPLACE PROCEDURE agregar_venta(p_cantidad NUMBER, p_codigo_producto VARCHAR2, p_numero_factura VARCHAR2, p_rut_cliente VARCHAR2) IS
     v_precio_producto NUMBER;
     v_total NUMBER;
 BEGIN
@@ -16,6 +16,7 @@ BEGIN
     VALUES (p_cantidad, v_total, p_codigo_producto, p_numero_factura);
 END agregar_venta;
 
+
 //Trigger para cuando se inserte una venta
 
 CREATE OR REPLACE TRIGGER venta_insert
@@ -23,6 +24,7 @@ AFTER INSERT ON VENTA
 FOR EACH ROW
 DECLARE
     v_existe_factura NUMBER;
+    v_rutcliente FACTURA.RUT%TYPE;
     v_subtotal FACTURA.SUBTOTAL%TYPE;
     v_iva FACTURA.IVA%TYPE;
     v_total_factura NUMBER;
@@ -31,11 +33,12 @@ BEGIN
     SELECT COUNT(*)
     INTO v_existe_factura
     FROM FACTURA
-    WHERE NUMERO = :NEW.NUMERO;
+    WHERE NUMERO = FACTURA.NUMERO;
 
     -- Si no existe la factura, crear una nueva
     IF v_existe_factura = 0 THEN
-        generar_factura(:NEW.NUMERO, SYSDATE, 0.16);
+
+        generar_factura(:NEW.NUMERO, SYSDATE, 0.16, v_rutcliente);
     END IF;
 
     -- Obtener el subtotal y el IVA de la factura
@@ -55,11 +58,12 @@ BEGIN
         IVA = v_iva,
         TOTAL = v_total_factura
     WHERE NUMERO = :NEW.NUMERO;
+    
 END;
 
-CREATE OR REPLACE PROCEDURE generar_factura(p_numero_factura VARCHAR2, p_fecha DATE, p_iva NUMBER) IS
+CREATE OR REPLACE PROCEDURE generar_factura(p_numero_factura VARCHAR2, p_fecha DATE, p_iva NUMBER, c_rut VARCHAR2) IS
 BEGIN
     -- Insertar la factura en la tabla FACTURA
-    INSERT INTO FACTURA (NUMERO, FECHA, SUBTOTAL, IVA, TOTAL)
-    VALUES (p_numero_factura, p_fecha, 0, p_iva, 0);
+    INSERT INTO FACTURA (NUMERO, FECHA, SUBTOTAL, IVA, TOTAL, RUT)
+    VALUES (p_numero_factura, p_fecha, 0, p_iva, 0, c_rut);
 END generar_factura;
