@@ -97,12 +97,6 @@ END pr_elimina_cliente;
 
 ------------------------------------------------------------------------------------------------------------
 
-//listado de clientes v1
-
-SELECT RUT, NOMBRE, APELLIDO1, APELLIDO2, DOMICILIO, TELEFONO FROM CLIENTE;
-
-//listado de clientes v2
-
 create or replace FUNCTION fn_consulta_cliente(rutEmpresa CLIENTE.RUT%TYPE)
         RETURN VARCHAR2
         IS
@@ -117,14 +111,126 @@ BEGIN
     registro := reg.rut || 
                                 '  ' || reg.nombre ||
                                 '  ' || reg.apellido1 ||
+                                '  ' || reg.apellido2 ||
                                 '  ' || reg.domicilio ||
                                 '  ' || TO_CHAR(reg.telefono)
                                 ;
     RETURN registro;
 END fn_consulta_cliente;
 
+------------------------------------------------------------------------------------------------------------
+
+CREATE OR REPLACE FUNCTION fn_listado_tClientes
+    RETURN VARCHAR2
+IS
+    reg      CLIENTE%ROWTYPE;
+    registro VARCHAR(200);
+BEGIN
+    SELECT *
+    INTO reg
+    FROM CLIENTE;
+
+    registro := reg.rut || 
+                '  ' || reg.nombre ||
+                '  ' || reg.apellido1 ||
+                '  ' || reg.apellido2 ||
+                '  ' || reg.domicilio ||
+                '  ' || reg.telefono;
+
+    RETURN registro;
+END fn_listado_tClientes;
+
+------------------------------------------------------------------------------------------------------------
+
+       CREATE OR REPLACE PROCEDURE pr_registrar_factura(codigoPR CARRITO.CODIGO_PRODUCTO%TYPE,
+                                                                                              cantidadPR 		CARRITO.CANTIDAD_PRODUCTO%TYPE)
+        IS
+        BEGIN 
+            
+            for f in reverse 1..cantidadPR loop
+                    INSERT INTO CARRITO (CODIGO_PRODUCTO, CANTIDAD_PRODUCTO)
+                    VALUES (codigoPR, cantidadPR);
+            end loop;
+        
+        END pr_registrar_factura;
+
+------------------------------------------------------------------------------------------------------------
+
+       CREATE OR REPLACE PROCEDURE pr_calcular_totales
+        IS   
+        costoFinal NUMBER;
+        costo NUMBER;
+        iva NUMBER;
+        cod VARCHAR2(10);
+        
+        BEGIN 
+            SELECT PRECIO_UNITARIO, CODIGO
+            INTO costo, cod
+            FROM PRODUCTO
+            WHERE CODIGO = (SELECT CODIGO_PRODUCTO
+                                                            FROM CARRITO
+                                                            WHERE CODIGO_PRODUCTO = CODIGO);
+                                                            
+        END pr_calcular_totales;
 
 ------------------------------------------------------------------------------------------------------------
 
 
+CREATE OR REPLACE PROCEDURE OBTENER_FACTURA (
+    P_NUMERO IN VARCHAR2
+) AS
+    V_FECHA FACTURA.FECHA%TYPE;
+    V_SUBTOTAL FACTURA.SUBTOTAL%TYPE;
+    V_IVA FACTURA.IVA%TYPE;
+    V_TOTAL FACTURA.TOTAL%TYPE;
+    V_CODIGO PRODUCTO.CODIGO%TYPE;
+    V_DESCRIPCION PRODUCTO.DESCRIPCION%TYPE;
+    V_PRECIO_UNITARIO PRODUCTO.PRECIO_UNITARIO%TYPE;
+    V_CANTIDAD VENTA.CANTIDAD%TYPE;
+    V_TOTAL_VENTA VENTA.TOTAL%TYPE;
+    V_RUT CLIENTE.RUT%TYPE;
+    V_NOMBRE CLIENTE.NOMBRE%TYPE;
+    V_APELLIDO1 CLIENTE.APELLIDO1%TYPE;
+    V_APELLIDO2 CLIENTE.APELLIDO2%TYPE;
+    V_DOMICILIO CLIENTE.DOMICILIO%TYPE;
+    V_TELEFONO CLIENTE.TELEFONO%TYPE;
+BEGIN
+    -- Obtener datos de la factura
+    SELECT FECHA, SUBTOTAL, IVA, TOTAL
+    INTO V_FECHA, V_SUBTOTAL, V_IVA, V_TOTAL
+    FROM FACTURA
+    WHERE NUMERO = P_NUMERO;
+
+    -- Obtener datos del cliente
+    SELECT RUT, NOMBRE, APELLIDO1, APELLIDO2, DOMICILIO, TELEFONO
+    INTO V_RUT, V_NOMBRE, V_APELLIDO1, V_APELLIDO2, V_DOMICILIO, V_TELEFONO
+    FROM CLIENTE
+    WHERE RUT IN (
+        SELECT RUT
+        FROM FACTURA
+        WHERE NUMERO = P_NUMERO
+    );
+
+    -- Obtener detalles de la venta y productos asociados
+    FOR R_PRODUCTO IN (
+        SELECT CODIGO, DESCRIPCION, PRECIO_UNITARIO
+        FROM PRODUCTO
+        WHERE CODIGO IN (
+            SELECT CODIGO
+            FROM VENTA
+            WHERE NUMERO = P_NUMERO
+        )
+    ) LOOP
+        V_CODIGO := R_PRODUCTO.CODIGO;
+        V_DESCRIPCION := R_PRODUCTO.DESCRIPCION;
+        V_PRECIO_UNITARIO := R_PRODUCTO.PRECIO_UNITARIO;
+
+        -- Obtener detalles de la venta para el producto actual
+        SELECT CANTIDAD, TOTAL
+        INTO V_CANTIDAD, V_TOTAL_VENTA
+        FROM VENTA
+        WHERE NUMERO = P_NUMERO AND CODIGO = V_CODIGO;
+
+    END LOOP;
+END;
 
