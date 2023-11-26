@@ -22,7 +22,7 @@ Como primera etapa y como parte del sistema de información, se modelará, dise�
 - [x] Registrar facturas con sus ventas correspondientes. Para evitar errores de cálculo, cada que se haga una venta, se deberá calcular automáticamente y actualizar en las tablas correspondientes el monto total de la venta, el subtotal, iva y gran total de la factura 
 - [x] Recupera los datos de facturas de forma individual (incluye los datos de la factura, cliente, productos y ventas) 
 - [x] Consulta de cantidad de productos o artículos vendidos a través de una factura determinada¨
-- [ ] Generación de facturas "listas" para impresión con base en el formato siguiente
+- [x] Generación de facturas "listas" para impresión con base en el formato siguiente
 
     LA COMPU  
     Factura:   [ A2345 ]  
