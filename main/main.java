@@ -5,6 +5,7 @@ public class main {
     public static void main(String[] args) {
         // Instanciar las clases
         controlventanas controlventanas = new controlventanas();
+        controlclientes controlclientes = new controlclientes();
         Inicio inicio = new Inicio();
         clientes clientes = new clientes();
         productos productos = new productos();
@@ -12,6 +13,7 @@ public class main {
 
         // Establecer las relaciones entre clases
         inicio.setControlVentanas(controlventanas);
+        clientes.setControlClientes(controlclientes);
         controlventanas.setInicio(inicio);
         controlventanas.setClientes(clientes);
         controlventanas.setProductos(productos);
