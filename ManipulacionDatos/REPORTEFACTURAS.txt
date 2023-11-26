@@ -1,0 +1,80 @@
+--Procedimiento que pinta las facturas
+
+CREATE OR REPLACE PROCEDURE pr_reporte_de_factura(FacturaN FACTURA.NUMERO%TYPE) IS
+    c  CLIENTE%ROWTYPE;
+    f  FACTURA%ROWTYPE;
+    CURSOR cursorDeVentas IS   
+        SELECT v.CANTIDAD AS cantidadV, 
+               TO_CHAR(v.TOTAL, '9,999,999.99') AS totalV, 
+               p.DESCRIPCION AS descripcionP,
+               p.CODIGO AS codigoP,
+               TO_CHAR(p.PRECIO_UNITARIO, '9,999,999.99') AS precioUnitarioP
+        FROM VENTA v, PRODUCTO p
+        WHERE v.CODIGO = p.CODIGO AND v.NUMERO = FacturaN
+        ORDER BY v.CODIGO;
+BEGIN
+    SELECT * INTO f
+    FROM FACTURA
+    WHERE NUMERO = FacturaN;
+
+    SELECT * INTO c
+    FROM CLIENTE
+    WHERE RUT = f.RUT;
+
+    DBMS_OUTPUT.PUT_LINE('LA COMPU');
+    DBMS_OUTPUT.PUT_LINE('  Factura:     [ '  || f.NUMERO ||  ' ]');
+    DBMS_OUTPUT.PUT_LINE('  Fecha:       [ ' || f.FECHA ||  ' ]');
+    DBMS_OUTPUT.PUT_LINE('  RUT:         [ ' || c.RUT ||  ' ]');
+    DBMS_OUTPUT.PUT_LINE('  Nombre:      [ ' || c.NOMBRE || ' ' || c.APELLIDO1 || ' ' || c.APELLIDO2 ||  ' ]');
+    DBMS_OUTPUT.PUT_LINE('  Domicilio:   [ ' || c.DOMICILIO ||  ' ]');
+    DBMS_OUTPUT.PUT_LINE('  Telefono:    [ ' || c.TELEFONO ||  ' ]');
+
+    DBMS_OUTPUT.PUT_LINE('------------------------------------------------------------------------------------');
+    DBMS_OUTPUT.PUT_LINE('| Código  | Descripción               | Cant       | Precio U.     | Total         |');
+    DBMS_OUTPUT.PUT_LINE('------------------------------------------------------------------------------------');
+    
+    FOR cadaFila IN cursorDeVentas
+    LOOP    
+        DBMS_OUTPUT.PUT_LINE('| ' || RPAD(cadaFila.codigoP, 7, ' ') || 
+                              ' | ' || RPAD(cadaFila.descripcionP, 25, ' ') || 
+                              ' | ' || RPAD(cadaFila.cantidadV, 10, ' ') || 
+                              ' | ' || RPAD(cadaFila.precioUnitarioP, 13, ' ') || 
+                              ' | ' || RPAD(cadaFila.totalV, 13, ' ') || ' |');
+    END LOOP;
+    
+DBMS_OUTPUT.PUT_LINE('------------------------------------------------------------------------------------');
+DBMS_OUTPUT.PUT_LINE('  Subtotal: ' || TRIM(TO_CHAR(f.SUBTOTAL, '9,999,999.99')));
+DBMS_OUTPUT.PUT_LINE('  IVA: ' || TRIM(TO_CHAR(f.IVA, '9,999,999.99')));
+DBMS_OUTPUT.PUT_LINE('  Total: $' || TRIM(TO_CHAR(f.TOTAL, '9,999,999.99')));
+    
+END pr_reporte_de_factura;
+
+
+
+EJEMPLO
+
+
+LA COMPU  
+    Factura:   [ A2345 ]  
+    Fecha:     [ 17/11/2023 ]  
+    RUT:       [ ABCD123456789 ]  
+    Nombre:    [ DOROTEO ABIMAEL CONTRERAS ]  
+    Domicilio: [ MORELOS 301. TOLUCA, CENTRO ]  
+    Teléfono:  [ 7225987456 ]  
+
+    ----------------------------------------------------------
+
+    | Código | Descripción        | Cant | Precio U. | Total   |
+    |--------|--------------------|------|-----------|---------|
+    | A2317  | TECLADO MECÁNICO   | 2    | 3,800.50  | 7,601.00|
+    | M5778  | DIADEMA GAMER      | 1    | 3,200.00  | 3,200.00|
+    | R7329  | TAPETE PARA MOUSE  | 1    | 450.99    | 450.99  |
+
+    ----------------------------------------------------------
+
+    Subtotal: 11,251.99  
+    IVA: 1,687.80  
+    Total: $12,939.79  
+
+
+  
