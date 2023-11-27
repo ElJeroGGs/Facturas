@@ -1,5 +1,6 @@
 package control;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.JOptionPane;
 
 public class controlclientes {
 
@@ -61,15 +63,40 @@ public class controlclientes {
     }
 
     public void eliminarCliente() {
-        
-        JPanel panelEliminarCliente = (JPanel) new panelEliminaClientes(this.panelTablaClientes);
-        verClientes();
+        panelEliminaClientes panelEliminarCliente = new panelEliminaClientes(this.panelTablaClientes);
+        panelEliminarCliente.setControl(this);
+        JPanel panelEliminaCliente = (JPanel) panelEliminarCliente;
         // Configura el panel de añadir cliente en la ventanaClientes
-        this.ventanaClientes.setPanel(panelEliminarCliente);
+        this.ventanaClientes.setPanel(panelEliminaCliente);
         verClientes();
     }
 
+
+    public void borradoCliente(String rut) {
+        Connection conn = modelo.connection.openConnection();
+        try {
+            // Crear un CallableStatement para llamar al procedimiento almacenado
+            CallableStatement cstmt = conn.prepareCall("{call pr_elimina_cliente(?)}");
+
+            // Establecer el valor del parámetro de entrada
+            cstmt.setString(1, rut);
+
+            // Ejecutar el procedimiento almacenado
+            cstmt.execute();
+
+            // Mostrar ventana de éxito
+            JOptionPane.showMessageDialog(null, "El cliente se ha borrado con éxito");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            modelo.connection.closeConnection(conn);
+        }
+        eliminarCliente();
+    }
+
     public void modificarCliente() {
+        // Add your code here for modifying a client
     }
 
    public void hacer(String command) {
