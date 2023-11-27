@@ -13,17 +13,18 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import control.controlclientes;
+import control.controlproductos;
 
-public class panelEliminaClientes extends JPanel implements ActionListener{
+public class panelEliminaProductos extends JPanel implements ActionListener{
 
-private controlclientes controlclientes;
+private controlproductos controlproductos;
 String selectedRecord;
 
-    public panelEliminaClientes(panelTablaClientes panelTablaClientes) {
+    public panelEliminaProductos(panelTablaProductos panelTablaProductos) {
         this.setLayout(new BorderLayout());
         
         JPanel contentPanel = new JPanel(new GridLayout(2, 1)); // Use GridLayout with 2 rows and 1 column
-        contentPanel.add(panelTablaClientes);
+        contentPanel.add(panelTablaProductos);
         
         JPanel buttonPanel = new JPanel();
         JButton eliminarButton = new JButton("Eliminar");
@@ -34,7 +35,7 @@ String selectedRecord;
         this.add(contentPanel, BorderLayout.CENTER);
 
         //Comportamiento del MouseListener
-        setupMouseListener(panelTablaClientes.getTabla());
+        setupMouseListener(panelTablaProductos.getTabla());
     }
 
     private void setupMouseListener(JTable paneltabla) {
@@ -53,11 +54,11 @@ String selectedRecord;
     public void actionPerformed(ActionEvent e) {
         //quiero ver el registro seleccionado
         System.out.println("Registro seleccionado: " + selectedRecord);
-        controlclientes.borradoCliente(selectedRecord);
+        controlproductos.borradoProducto(selectedRecord);
     }
 
-    public void setControl(controlclientes controlclientes) {
-        this.controlclientes = controlclientes;
+    public void setControl(controlproductos controlproductos) {
+        this.controlproductos = controlproductos;
     }
 
     public JPanel getPanel() {

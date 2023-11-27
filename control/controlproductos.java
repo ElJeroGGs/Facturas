@@ -1,12 +1,16 @@
 package control;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import modelo.connection;
+import modelo.productos;
+import vista.panelEliminaClientes;
+import vista.panelEliminaProductos;
 import vista.panelTablaProductos;
-
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -59,10 +63,40 @@ public class controlproductos {
         this.ventanaProductos.setPanel(panelAñadirProducto);
     }
 
-    public void eliminarCliente() {
+    public void eliminarProducto() {
+        panelEliminaProductos panelEliminarProductos = new panelEliminaProductos(this.panelTablaProductos);
+        panelEliminarProductos.setControl(this);
+        JPanel panelEliminaProductos = (JPanel) panelEliminarProductos;
+        // Configura el panel de añadir cliente en la ventanaClientes
+        this.ventanaProductos.setPanel(panelEliminaProductos);
+        
+        verProductos();
     }
 
     public void modificarCliente() {
+    }
+
+    public void borradoProducto(String codigo) {
+        Connection conn = modelo.connection.openConnection();
+        try {
+            // Crear un CallableStatement para llamar al procedimiento almacenado
+            CallableStatement cstmt = conn.prepareCall("{call pr_elimina_producto(?)}");
+
+            // Establecer el valor del parámetro de entrada
+            cstmt.setString(1, codigo);
+
+            // Ejecutar el procedimiento almacenado
+            cstmt.execute();
+
+            // Mostrar ventana de éxito
+            JOptionPane.showMessageDialog(null, "El producto se ha borrado con éxito");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            modelo.connection.closeConnection(conn);
+        }
+        eliminarProducto();
     }
 
    public void hacer(String command) {
@@ -74,7 +108,7 @@ public class controlproductos {
                 addProducto();
                 break;
             case "eliminar":
-                eliminarCliente();
+                eliminarProducto();
                 break;
             case "modificar":
                 modificarCliente();
@@ -89,4 +123,31 @@ public class controlproductos {
         this.panelTablaProductos = panelTablaProductos;
     }
     
+    public void setPanelAñadirProducto(vista.panelAñadirProducto panelAñadirProducto) {
+       // this.panelAñadirProducto = panelAñadirProducto;
+    }
+    
+    public static void insertarProductos(productos productos){
+        String sql = "INSERT INTO PRODUCTO (CODIGO, DESCRIPCION, PRECIO_UNITARIO) VALUES (?, ?, ?)";
+        connection conn;
+
+        try (Connection connection = modelo.connection.openConnection();
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+
+            pstmt.setString(1, productos.getCodigo().toUpperCase());
+            pstmt.setString(2, productos.getDescripcion().toUpperCase());
+            pstmt.setString(3, productos.getPrecio_unitario().toUpperCase());
+
+            int rowsInserted = pstmt.executeUpdate();
+
+            if (rowsInserted > 0) {
+                JOptionPane.showMessageDialog(null, "Producto insertado");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se pudo insertar el producto");
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }
 }

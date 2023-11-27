@@ -23,6 +23,7 @@ public class main {
 
         panelEliminaClientes.setControl(controlclientes);
 
+
         clientes.setControlClientes(controlclientes);
         productos.setControlProductos(controlproductos);
         

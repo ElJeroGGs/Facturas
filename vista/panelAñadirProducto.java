@@ -3,6 +3,8 @@ package vista;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -10,7 +12,10 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-public class panelAñadirProducto extends JPanel{
+import control.controlproductos;
+import modelo.productos;
+
+public class panelAñadirProducto extends JPanel implements ActionListener{
     
     JLabel lblCodigo, lblPrecioUnitario, lblDescripcion, lblTitulo;
     JTextField txtCodigo, txtPrecioUnitario, txtCantidad;
@@ -48,6 +53,7 @@ public class panelAñadirProducto extends JPanel{
         txtCantidad = new JTextField();
 
         btnEnviar = new JButton("Enviar Datos");
+        btnEnviar.addActionListener(this);
         btnEnviar.setPreferredSize(new Dimension(150, 30));
 
         panelPrincipal.add(lblTitulo);
@@ -68,5 +74,15 @@ public class panelAñadirProducto extends JPanel{
 
     public JPanel getPanel(){
         return this.panelPrincipal;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        productos nuevProductos = new productos();
+        nuevProductos.setCodigo(txtCodigo.getText());
+        nuevProductos.setDescripcion(txtCantidad.getText());
+        nuevProductos.setPrecio_unitario(txtPrecioUnitario.getText());
+
+        controlproductos.insertarProductos(nuevProductos);
     }
 }
