@@ -37,7 +37,7 @@ import java.sql.SQLException;
                     public clientes() {
                         // Configurar propiedades de la ventana
                         setTitle("Clientes");
-                        setSize(1000, 300);
+                        setSize(1200, 300);
                         setLayout(new GridLayout(1, 2));
 
                         // Panel de botones
