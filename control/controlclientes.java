@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import modelo.clientes;
 import modelo.connection;
 import vista.panelAñadirCliente;
+import vista.panelEliminaClientes;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -19,14 +20,12 @@ public class controlclientes {
 
       private vista.clientes ventanaClientes;
       private vista.panelTablaClientes panelTablaClientes;
-      
 
         public void setClientesVentana(vista.clientes ventana) {
             this.ventanaClientes = ventana;
         }
     public void verClientes() {
-        JTable Tabla =  panelTablaClientes.getTabla();        
-        this.ventanaClientes.setPanel(panelTablaClientes);
+        JTable Tabla =  panelTablaClientes.getTabla();      
 
         DefaultTableModel modeloTabla = (DefaultTableModel) Tabla.getModel();
         modeloTabla.setRowCount(0);
@@ -62,6 +61,12 @@ public class controlclientes {
     }
 
     public void eliminarCliente() {
+        
+        JPanel panelEliminarCliente = (JPanel) new panelEliminaClientes(this.panelTablaClientes);
+        verClientes();
+        // Configura el panel de añadir cliente en la ventanaClientes
+        this.ventanaClientes.setPanel(panelEliminarCliente);
+        verClientes();
     }
 
     public void modificarCliente() {
@@ -71,6 +76,7 @@ public class controlclientes {
         switch (command) {
             case "ver":
                 verClientes();
+        this.ventanaClientes.setPanel(panelTablaClientes);
                 break;
             case "agregar":
                 addCliente();

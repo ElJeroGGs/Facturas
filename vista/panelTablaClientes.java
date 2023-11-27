@@ -1,12 +1,18 @@
 package vista;
 
+import java.awt.event.MouseAdapter;
+
+import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import org.w3c.dom.events.MouseEvent;
+
 public class panelTablaClientes extends JScrollPane {
     private JTable table;
+    private Object selectedRecord;
 
     public panelTablaClientes() {
         String[] columnNames = {"RUT", "NOMBRE", "APELLIDO 1", "APELLIDO 2", "DOMICILIO", "TELEFONO"};
@@ -19,4 +25,10 @@ public class panelTablaClientes extends JScrollPane {
     public JTable getTabla() {
         return this.table;
     }
+
+    public JPanel getPanel() {
+        return null;
+    }
+
+    
 }
