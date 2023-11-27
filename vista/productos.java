@@ -102,7 +102,7 @@ public class productos extends JFrame implements ActionListener{
             panelExtra.revalidate(); // Recalcular el layout de panelExtra
             panelExtra.repaint(); // Redibujar panelExtra
         }
-
+        
         public void setPanel(JPanel newPanel) {
             panelExtra.setViewportView(newPanel); // Establecer el nuevo JPanel como la vista del JScrollPane
             panelExtra.revalidate(); // Recalcular el layout de panelExtra
