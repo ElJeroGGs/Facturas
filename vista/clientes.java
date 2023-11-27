@@ -104,19 +104,15 @@ import java.sql.SQLException;
                     }
 
                     public void setPanel(JScrollPane scrollPane) {
-                        this.remove(panelExtra);
-                        this.add(scrollPane);
-                        this.revalidate(); // Recalcular el layout de this
-                        this.repaint(); // Redibujar this
+                        panelExtra.setViewportView(scrollPane); // Establecer el nuevo JScrollPane como la vista del JScrollPane existente
+                        panelExtra.revalidate(); // Recalcular el layout de panelExtra
+                        panelExtra.repaint(); // Redibujar panelExtra
                     }
 
-                    public void setPanel(JPanel panel) {
-                        
-                        this.remove(panelExtra);
-                        this.add(panel);
-                        this.revalidate(); // Recalcular el layout de this
-                        this.repaint(); // Redibujar this
-                        System.out.println(getComponentCount());
+                    public void setPanel(JPanel newPanel) {
+                        panelExtra.setViewportView(newPanel); // Establecer el nuevo JPanel como la vista del JScrollPane
+                        panelExtra.revalidate(); // Recalcular el layout de panelExtra
+                        panelExtra.repaint(); // Redibujar panelExtra
                     }
 
                 }
