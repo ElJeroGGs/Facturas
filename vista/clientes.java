@@ -109,6 +109,16 @@ import java.sql.SQLException;
                         this.revalidate(); // Recalcular el layout de this
                         this.repaint(); // Redibujar this
                     }
+
+                    public void setPanel(JPanel panel) {
+                        
+                        this.remove(panelExtra);
+                        this.add(panel);
+                        this.revalidate(); // Recalcular el layout de this
+                        this.repaint(); // Redibujar this
+                        System.out.println(getComponentCount());
+                    }
+
                 }
 
 

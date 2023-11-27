@@ -4,20 +4,21 @@ import java.awt.Font;
 import java.awt.GridLayout;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-
+    
     public class panelAñadirCliente extends JPanel{
-        
+        JPanel panelPrincipal, panelContenido, panelBtn;
         JTextField txtRut, txtNombre, txtApellido1, txtApellido2, txtTelefono, txtDomicilio;
 
         public panelAñadirCliente(){
         
         JLabel lblRut, lblNombre, lblApellido1, lblApellido2, lblTelefono, lblDomicilio, titulo;
-        JPanel panelPrincipal, panelContenido, panelBtn;
+        
         JButton btnEnviar;
 
         panelPrincipal = new JPanel(new GridLayout(3,1));
@@ -85,5 +86,9 @@ import javax.swing.border.EmptyBorder;
         
         panelBtn.add(btnEnviar);
         btnEnviar.setHorizontalAlignment(JButton.CENTER);
+    }
+
+    public JPanel getPanel(){
+        return this.panelPrincipal;
     }
 }

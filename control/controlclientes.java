@@ -7,7 +7,9 @@ import java.sql.SQLException;
 
 import modelo.clientes;
 import modelo.connection;
+import vista.panelAñadirCliente;
 
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -53,7 +55,9 @@ public class controlclientes {
 
     }
     public void addCliente() {
-
+        JPanel panelAñadirCliente = new vista.panelAñadirCliente().getPanel();
+        // Configura el panel de añadir cliente en la ventanaClientes
+        this.ventanaClientes.setPanel(panelAñadirCliente);
     }
 
     public void eliminarCliente() {
@@ -86,4 +90,7 @@ public class controlclientes {
         this.panelTablaClientes = panelTablaClientes;
     }
     
+    public void setPanelAñadirClientes(vista.panelAñadirCliente panelAñadirCliente) {
+       // this.panelAñadirCLienes = panelAñadirCliente;
+    }
 }
