@@ -6,6 +6,7 @@ public class main {
         // Instanciar las clases
         controlventanas controlventanas = new controlventanas();
         controlclientes controlclientes = new controlclientes();
+        controlproductos controlproductos = new controlproductos();
         Inicio inicio = new Inicio();
         clientes clientes = new clientes();
         productos productos = new productos();
@@ -14,15 +15,20 @@ public class main {
         // Establecer las relaciones entre clases
         inicio.setControlVentanas(controlventanas);
 
+
         clientes.setControlClientes(controlclientes);
+        productos.setControlProductos(controlproductos);
         
         controlclientes.setClientesVentana(clientes);
+        controlproductos.setProductosVentana(productos);
+        
         controlventanas.setInicio(inicio);
         controlventanas.setClientes(clientes);
         controlventanas.setProductos(productos);
         controlventanas.setFacturas(facturas);
 
         controlclientes.verClientes(clientes.getTableModel());
+       
 
         inicio.setVisible(true);
     }
