@@ -9,6 +9,7 @@ import modelo.clientes;
 import modelo.connection;
 import vista.panelTablaProductos;
 
+import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -54,7 +55,10 @@ public class controlproductos {
          
         this.ventanaProductos.setPanel(panelTablaProductos);
     }
-    public void addCliente() {
+    public void addProducto() {
+        JPanel panelAñadirProducto = new vista.panelAñadirProducto().getPanel();
+        // Configura el panel de añadir cliente en la ventanaClientes
+        this.ventanaProductos.setPanel(panelAñadirProducto);
     }
 
     public void eliminarCliente() {
@@ -69,7 +73,7 @@ public class controlproductos {
                 verProductos();
                 break;
             case "agregar":
-                addCliente();
+                addProducto();
                 break;
             case "eliminar":
                 eliminarCliente();
