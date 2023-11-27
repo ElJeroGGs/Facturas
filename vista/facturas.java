@@ -30,7 +30,7 @@ public class facturas extends JFrame implements ActionListener{
                     public facturas() {
                         // Configurar propiedades de la ventana
                         setTitle("Facturas");
-                        setSize(600, 300);
+                        setSize(1200, 300);
                         setLayout(new GridLayout(1, 2));
 
                         // Panel de botones
@@ -46,7 +46,9 @@ public class facturas extends JFrame implements ActionListener{
                         panelBotones.add(label);
 
                         // Añadir botón "Ver facturas"
-                        JButton btnVerFacturas = new JButton("Ver facturas");
+                        JButton btnVerFacturas = new JButton("ver Factura");
+                        btnVerFacturas.setActionCommand("generar");
+                        btnVerFacturas.addActionListener(this);
                         panelBotones.add(btnVerFacturas);
 
                         // Añadir botón "Añadir factura"
@@ -58,6 +60,8 @@ public class facturas extends JFrame implements ActionListener{
 
                         // Añadir botón "Eliminar factura"
                         JButton btnEliminarFactura = new JButton("Eliminar factura");
+                        btnEliminarFactura.setActionCommand("eliminar");
+                        btnEliminarFactura.addActionListener(this);
                         panelBotones.add(btnEliminarFactura);
 
 

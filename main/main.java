@@ -47,6 +47,7 @@ public class main {
         controlventanas.setFacturas(facturas);
        
         facturas.setControlfacturas(controlfacturas);
+        panelEliminarFactura.setControl(controlfacturas);
         controlfacturas.setVentanaFacturas(facturas);
 
 
