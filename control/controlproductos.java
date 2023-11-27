@@ -23,36 +23,7 @@ public class controlproductos {
             this.ventanaProductos = ventana;
         }
     public void verProductos() {
-        JTable Tabla =  panelTablaProductos.getTabla();        
-       
-        DefaultTableModel modeloTabla = (DefaultTableModel) Tabla.getModel();
         
-        modeloTabla.setRowCount(0);
-        connection conn;
-        Connection connection = modelo.connection.openConnection();
-        
-        try {
-            
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM PRODUCTO");
-            ResultSet resultSet = preparedStatement.executeQuery();
-            int columnas = resultSet.getMetaData().getColumnCount();
-
-            while(resultSet.next()) {
-                Object[] fila = new Object[columnas];
-                for(int i = 0; i < columnas; i++) {
-                    fila[i] = resultSet.getObject(i + 1);
-                }
-                modeloTabla.addRow(fila);
-            }
-
-            // No olvides cerrar tus recursos
-            resultSet.close();
-            preparedStatement.close();
-            modelo.connection.closeConnection(connection);
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
          
     }
     public void addProducto() {

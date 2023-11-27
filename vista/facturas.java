@@ -60,9 +60,7 @@ public class facturas extends JFrame implements ActionListener{
                         JButton btnEliminarFactura = new JButton("Eliminar factura");
                         panelBotones.add(btnEliminarFactura);
 
-                        // Añadir botón "Modificar factura"
-                        JButton btnModificarFactura = new JButton("Modificar factura");
-                        panelBotones.add(btnModificarFactura);
+
 
                         add(panelBotones);
 

@@ -21,6 +21,9 @@ public class main {
         vista.panelTablaProductos panelTablaProductos = new panelTablaProductos();
         vista.panelEliminaProductos panelEliminaProductos = new panelEliminaProductos(panelTablaProductos);
 
+        vista.panelTablaFactura panelTablaFactura = new vista.panelTablaFactura();
+        vista.panelEliminarFactura panelEliminarFactura = new vista.panelEliminarFactura(panelTablaFactura);
+
         // Establecer las relaciones entre clases
         inicio.setControlVentanas(controlventanas);
 
@@ -36,7 +39,7 @@ public class main {
         controlclientes.setPanelTablaClientes(panelTablaClientes);
 
         controlproductos.setProductosVentana(productos);
-        controlproductos.setPanelTablaProductos(panelTablaProductos);
+        controlproductos.setPanelTablaProductos(panelTablaProductos);        
         
         controlventanas.setInicio(inicio);
         controlventanas.setClientes(clientes);
@@ -45,6 +48,10 @@ public class main {
        
         facturas.setControlfacturas(controlfacturas);
         controlfacturas.setVentanaFacturas(facturas);
+
+
+        controlfacturas.setPanelTablaFactura(panelTablaFactura);
+        controlventanas.setFacturas(facturas);
 
         inicio.setVisible(true);
     }
