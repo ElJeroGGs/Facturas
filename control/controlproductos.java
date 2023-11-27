@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import modelo.connection;
 import modelo.producto;
 import vista.panelEliminaProductos;
+import vista.panelModificaProducto;
 import vista.panelTablaProductos;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -71,7 +72,12 @@ public class controlproductos {
 
     }
 
-    public void modificarCliente() {
+    public void ModificarProducto() {
+        panelModificaProducto panelModificaProducto = new vista.panelModificaProducto(this.panelTablaProductos);
+        panelModificaProducto.setControl(this);
+        // Configura el panel de añadir cliente en la ventanaClientes
+        this.ventanaProductos.setPanel(panelModificaProducto);
+        verProductos();
     }
 
     public void borradoProducto(String codigo) {
@@ -110,7 +116,7 @@ public class controlproductos {
                 eliminarProducto();
                 break;
             case "modificar":
-                modificarCliente();
+                ModificarProducto();
                 break;
             default:
                 System.out.println("Comando inválido");
@@ -143,6 +149,38 @@ public class controlproductos {
                 JOptionPane.showMessageDialog(null, "Producto insertado");
             } else {
                 JOptionPane.showMessageDialog(null, "No se pudo insertar el producto");
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }
+
+     
+
+    public void modificadoProducto(String selectedRecord) {
+        JPanel panel = new vista.panelActualizaProducto(selectedRecord).getPanel();
+
+        this.ventanaProductos.setPanel(panel);
+
+    }
+    public static void ProductoRefresh(producto nuevoProducto) {
+       String sql = "UPDATE PRODUCTO SET DESCRIPCION = ?, PRECIO_UNITARIO = ? WHERE CODIGO = ?";
+        connection conn;
+
+        try (Connection connection = modelo.connection.openConnection();
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+
+            pstmt.setString(1, nuevoProducto.getDescripcion().toUpperCase());
+            pstmt.setString(2, nuevoProducto.getPrecio_unitario().toUpperCase());
+            pstmt.setString(3, nuevoProducto.getCodigo().toUpperCase());
+
+            int rowsUpdated = pstmt.executeUpdate();
+
+            if (rowsUpdated > 0) {
+                JOptionPane.showMessageDialog(null, "Producto actualizado");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se pudo actualizar el producto");
             }
 
         } catch (SQLException e) {
