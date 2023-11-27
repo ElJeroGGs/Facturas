@@ -1,6 +1,7 @@
 package vista;
 
 import java.awt.BorderLayout;
+import java.awt.GridLayout;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -13,11 +14,15 @@ public class panelEliminaClientes extends JPanel{
 
     public panelEliminaClientes(panelTablaClientes panelTablaClientes) {
         this.setLayout(new BorderLayout());
-        this.add(panelTablaClientes, BorderLayout.CENTER);
+        
+        JPanel contentPanel = new JPanel(new GridLayout(2, 1)); // Use GridLayout with 2 rows and 1 column
+        contentPanel.add(panelTablaClientes);
         
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(new JButton("Eliminar"));
-        this.add(buttonPanel, BorderLayout.SOUTH);
+        contentPanel.add(buttonPanel);
+        
+        this.add(contentPanel, BorderLayout.CENTER);
     }
 
     public JPanel getPanel() {

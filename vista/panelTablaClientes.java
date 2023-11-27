@@ -20,6 +20,9 @@ public class panelTablaClientes extends JScrollPane {
         DefaultTableModel modeloTabla = new DefaultTableModel(columnNames, 0);
         this.table.setModel(modeloTabla);
         this.setViewportView(this.table); // Establecer la tabla como la vista del JScrollPane
+        
+        // Ajustar el tamaño del JScrollPane al tamaño de la tabla
+        this.setPreferredSize(this.table.getPreferredSize());
     }
 
     public JTable getTabla() {
