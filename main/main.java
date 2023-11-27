@@ -7,6 +7,7 @@ public class main {
         controlventanas controlventanas = new controlventanas();
         controlclientes controlclientes = new controlclientes();
         controlproductos controlproductos = new controlproductos();
+        controlfacturas controlfacturas = new controlfacturas();
 
         Inicio inicio = new Inicio();
         clientes clientes = new clientes();
@@ -34,6 +35,8 @@ public class main {
         controlventanas.setProductos(productos);
         controlventanas.setFacturas(facturas);
        
+        facturas.setControlfacturas(controlfacturas);
+        controlfacturas.setVentanaFacturas(facturas);
 
         inicio.setVisible(true);
     }
