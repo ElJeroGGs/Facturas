@@ -19,6 +19,7 @@ public class controlclientes {
 
       private vista.clientes ventanaClientes;
       private vista.panelTablaClientes panelTablaClientes;
+      
 
         public void setClientesVentana(vista.clientes ventana) {
             this.ventanaClientes = ventana;

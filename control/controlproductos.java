@@ -7,16 +7,24 @@ import java.sql.SQLException;
 
 import modelo.clientes;
 import modelo.connection;
+import vista.panelTablaProductos;
+
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 public class controlproductos {
 
       private vista.productos ventanaProductos;
+      private vista.panelTablaProductos panelTablaProductos;
 
         public void setProductosVentana(vista.productos ventana) {
             this.ventanaProductos = ventana;
         }
-    public void verProductos(DefaultTableModel modeloTabla) {
+    public void verProductos() {
+        JTable Tabla =  panelTablaProductos.getTabla();        
+       
+        DefaultTableModel modeloTabla = (DefaultTableModel) Tabla.getModel();
+        
         modeloTabla.setRowCount(0);
         connection conn;
         Connection connection = modelo.connection.openConnection();
@@ -43,6 +51,8 @@ public class controlproductos {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+         
+        this.ventanaProductos.setPanel(panelTablaProductos);
     }
     public void addCliente() {
     }
@@ -56,7 +66,7 @@ public class controlproductos {
    public void hacer(String command) {
         switch (command) {
             case "ver":
-                verProductos(this.ventanaProductos.getTableModel());
+                verProductos();
                 break;
             case "agregar":
                 addCliente();
@@ -71,6 +81,10 @@ public class controlproductos {
                 System.out.println("Comando inválido");
                 break;
         }
+    }
+
+    public void setPanelTablaProductos(vista.panelTablaProductos panelTablaProductos) {
+        this.panelTablaProductos = panelTablaProductos;
     }
     
 }
