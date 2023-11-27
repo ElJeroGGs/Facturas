@@ -47,7 +47,7 @@ create or replace PROCEDURE pr_modificar_cliente_apellido1(
     BEGIN
         UPDATE  CLIENTE
             SET apellido1 = nuevoapellido1
-            WHERE rutEmpresa = rut;
+            WHERE rut = rutEmpresa;
     END pr_modificar_cliente_apellido1;
 
 ------------------------------------------------------------------------------------------------------------
