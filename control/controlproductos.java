@@ -6,8 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import modelo.connection;
-import modelo.productos;
-import vista.panelEliminaClientes;
+import modelo.producto;
 import vista.panelEliminaProductos;
 import vista.panelTablaProductos;
 import javax.swing.JOptionPane;
@@ -55,7 +54,6 @@ public class controlproductos {
             e.printStackTrace();
         }
          
-        this.ventanaProductos.setPanel(panelTablaProductos);
     }
     public void addProducto() {
         JPanel panelAñadirProducto = new vista.panelAñadirProducto().getPanel();
@@ -127,7 +125,7 @@ public class controlproductos {
        // this.panelAñadirProducto = panelAñadirProducto;
     }
     
-    public static void insertarProductos(productos productos){
+    public static void insertarProductos(producto productos){
         String sql = "INSERT INTO PRODUCTO (CODIGO, DESCRIPCION, PRECIO_UNITARIO) VALUES (?, ?, ?)";
         connection conn;
 

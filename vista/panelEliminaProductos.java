@@ -8,11 +8,10 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 
-import control.controlclientes;
 import control.controlproductos;
 
 public class panelEliminaProductos extends JPanel implements ActionListener{
@@ -52,9 +51,14 @@ String selectedRecord;
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        //quiero ver el registro seleccionado
-        System.out.println("Registro seleccionado: " + selectedRecord);
-        controlproductos.borradoProducto(selectedRecord);
+        if (selectedRecord == null) {
+            // Show a window with the message "Selecciona un registro"
+            JOptionPane.showMessageDialog(this, "Selecciona un registro");
+        } else {
+            // Print the selected record and perform the deletion
+            System.out.println("Registro seleccionado: " + selectedRecord);
+            controlproductos.borradoProducto(selectedRecord);
+        }
     }
 
     public void setControl(controlproductos controlproductos) {

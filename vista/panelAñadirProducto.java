@@ -13,7 +13,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import control.controlproductos;
-import modelo.productos;
+import modelo.producto;
 
 public class panelAñadirProducto extends JPanel implements ActionListener{
     
@@ -78,7 +78,7 @@ public class panelAñadirProducto extends JPanel implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        productos nuevProductos = new productos();
+        producto nuevProductos = new producto();
         nuevProductos.setCodigo(txtCodigo.getText());
         nuevProductos.setDescripcion(txtCantidad.getText());
         nuevProductos.setPrecio_unitario(txtPrecioUnitario.getText());
