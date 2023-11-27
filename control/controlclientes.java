@@ -8,15 +8,15 @@ import java.sql.SQLException;
 
 import modelo.cliente;
 import modelo.connection;
+import vista.panelActualizaCliente;
 import vista.panelAñadirCliente;
 import vista.panelEliminaClientes;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import vista.panelModificaCliente;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JOptionPane;
 
 public class controlclientes {
@@ -97,7 +97,12 @@ public class controlclientes {
     }
 
     public void modificarCliente() {
-        // Add your code here for modifying a client
+        panelModificaCliente panelModificaClientePanel = new panelModificaCliente(this.panelTablaClientes);
+        panelModificaClientePanel.setControl(this);
+        JPanel panelModificaCliente = (JPanel) panelModificaClientePanel;
+        // Configura el panel de modificar cliente en la ventanaClientes
+        this.ventanaClientes.setPanel(panelModificaCliente);
+        verClientes();
     }
 
    public void hacer(String command) {
@@ -148,6 +153,7 @@ public class controlclientes {
 
             if (rowsInserted > 0) {
                 JOptionPane.showMessageDialog(null, "Cliente insertado");
+                
             } else {
                 JOptionPane.showMessageDialog(null, "No se pudo insertar el cliente");
             }
@@ -155,5 +161,48 @@ public class controlclientes {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
+        
+    }
+    public void modificadoCliente(String selectedRecord) {
+
+ JPanel panel = new vista.panelActualizaCliente(selectedRecord).getPanel();
+
+        this.ventanaClientes.setPanel(panel);
+    }
+
+
+    public static void ClienteRefresh(cliente cliente) {
+        String sql = "UPDATE CLIENTE SET NOMBRE = ?, APELLIDO1 = ?, APELLIDO2 = ?, DOMICILIO = ?, TELEFONO = ? WHERE RUT = ?";
+        connection conn;
+
+        try (Connection connection = modelo.connection.openConnection();
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+
+            String nuevoNombre = cliente.getNombre().toUpperCase();
+            String nuevoApellido1 = cliente.getApellido1().toUpperCase();
+            String nuevoApellido2 = cliente.getApellido2().toUpperCase();
+            String nuevoDomicilio = cliente.getDomicilio().toUpperCase();
+            String nuevoTelefono = cliente.getTelefono().toUpperCase();
+            String rut = cliente.getRut().toUpperCase();
+
+            pstmt.setString(1, nuevoNombre);
+            pstmt.setString(2, nuevoApellido1);
+            pstmt.setString(3, nuevoApellido2);
+            pstmt.setString(4, nuevoDomicilio);
+            pstmt.setString(5, nuevoTelefono);
+            pstmt.setString(6, rut);
+
+            int rowsUpdated = pstmt.executeUpdate();
+
+            if (rowsUpdated > 0) {
+                JOptionPane.showMessageDialog(null, "Registro actualizado");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se pudo actualizar el registro");
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
     }
 }
+
