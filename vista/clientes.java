@@ -6,6 +6,7 @@ import control.controlclientes;
 import control.controlventanas;
 import modelo.connection;
 
+import java.awt.BorderLayout;
 import java.awt.Font;
 import javax.swing.JLabel;
 import javax.swing.JButton;
@@ -28,6 +29,7 @@ import java.sql.SQLException;
                     
                     private controlventanas control;
                     private controlclientes controlclientes;
+                    private JScrollPane panelExtra;  
                     private JTable table;
                     
                     public DefaultTableModel getTableModel() {
@@ -79,18 +81,8 @@ import java.sql.SQLException;
                         add(panelBotones);
 
                         // Panel adicional a la derecha
-                        JPanel panelExtra = new JPanel();
-                        // Configurar propiedades del panel extra
-
-                        //tabla 
-                        String[] columnNames = {"RUT", "NOMBRE", "APELLIDO 1", "APELLIDO 2", "DOMICILIO", "TELEFONO"};
-                  
-                        table = new JTable();
-                        DefaultTableModel modeloTabla = new DefaultTableModel(columnNames, 0);
-                        table.setModel(modeloTabla);
-                        JScrollPane scrollPane = new JScrollPane(table); 
-                        panelExtra.add(scrollPane);
-                        add(panelExtra);
+                        this.panelExtra = new JScrollPane();
+                        add(this.panelExtra);
                         // Centrar la ventana en la pantalla
                         setLocationRelativeTo(null);
 
@@ -104,18 +96,18 @@ import java.sql.SQLException;
                         this.controlclientes = controlclientes;
                     }
 
-
-                    public void pintaTabla(JTable tabla) {
-                        DefaultTableModel modeloTabla = (DefaultTableModel) tabla.getModel();
-                        controlclientes.verClientes(modeloTabla);
-                    
-                    }
-
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         String command = e.getActionCommand();
                         controlclientes.hacer(command);
                     
+                    }
+
+                    public void setPanel(JScrollPane scrollPane) {
+                        this.remove(panelExtra);
+                        this.add(scrollPane);
+                        this.revalidate(); // Recalcular el layout de this
+                        this.repaint(); // Redibujar this
                     }
                 }
 

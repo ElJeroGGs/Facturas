@@ -7,10 +7,13 @@ public class main {
         controlventanas controlventanas = new controlventanas();
         controlclientes controlclientes = new controlclientes();
         controlproductos controlproductos = new controlproductos();
+
         Inicio inicio = new Inicio();
         clientes clientes = new clientes();
         productos productos = new productos();
         facturas facturas = new facturas();
+
+        vista.panelTablaClientes panelTablaClientes = new panelTablaClientes();
 
         // Establecer las relaciones entre clases
         inicio.setControlVentanas(controlventanas);
@@ -20,14 +23,13 @@ public class main {
         productos.setControlProductos(controlproductos);
         
         controlclientes.setClientesVentana(clientes);
-        controlproductos.setProductosVentana(productos);
+        controlclientes.setPanelTablaClientes(panelTablaClientes);
         
+        controlproductos.setProductosVentana(productos);
         controlventanas.setInicio(inicio);
         controlventanas.setClientes(clientes);
         controlventanas.setProductos(productos);
         controlventanas.setFacturas(facturas);
-
-        controlclientes.verClientes(clientes.getTableModel());
        
 
         inicio.setVisible(true);
