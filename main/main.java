@@ -14,6 +14,7 @@ public class main {
         facturas facturas = new facturas();
 
         vista.panelTablaClientes panelTablaClientes = new panelTablaClientes();
+        vista.panelTablaProductos panelTablaProductos = new panelTablaProductos();
 
         // Establecer las relaciones entre clases
         inicio.setControlVentanas(controlventanas);
@@ -24,8 +25,10 @@ public class main {
         
         controlclientes.setClientesVentana(clientes);
         controlclientes.setPanelTablaClientes(panelTablaClientes);
-        
+
         controlproductos.setProductosVentana(productos);
+        controlproductos.setPanelTablaProductos(panelTablaProductos);
+        
         controlventanas.setInicio(inicio);
         controlventanas.setClientes(clientes);
         controlventanas.setProductos(productos);

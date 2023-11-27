@@ -20,8 +20,8 @@ public class productos extends JFrame implements ActionListener{
 
         private controlproductos controlproductos;
         private JTable table;
-
         private controlventanas control;
+        private JScrollPane panelExtra;
 
         public productos() {
             // Configurar propiedades de la ventana
@@ -68,16 +68,8 @@ public class productos extends JFrame implements ActionListener{
             add(panelBotones);
 
             // Panel adicional a la derecha
-                JPanel panelExtra = new JPanel();
+              this.panelExtra = new JScrollPane();
                 // Configurar propiedades del panel extra
-
-                //tabla 
-                String[] columnNames = {"CÓDIGO", "DESCRIPCIÓN", "PRECIO UNITARIO"};
-                table = new JTable();                       
-                DefaultTableModel modeloTabla = new DefaultTableModel(columnNames, 0);
-                table.setModel(modeloTabla);
-                JScrollPane scrollPane = new JScrollPane(table); 
-                panelExtra.add(scrollPane);
                 add(panelExtra);
                 // Centrar la ventana en la pantalla
                 setLocationRelativeTo(null);
@@ -104,5 +96,18 @@ public class productos extends JFrame implements ActionListener{
         public void setControlProductos(control.controlproductos controlproductos2) {
             this.controlproductos = controlproductos2;
         }
+
+        public void setPanel(JScrollPane scrollPane) {
+            this.remove(this.panelExtra);
+            this.add(scrollPane);
+            this.revalidate(); // Recalcular el layout de this
+            this.repaint(); // Redibujar this
+        }
         
+        public void setPanelExtra(JScrollPane scrollPane) {
+            this.remove(this.panelExtra);
+            this.add(scrollPane);
+            this.revalidate(); // Recalcular el layout de this
+            this.repaint(); // Redibujar this
+        }
     }
