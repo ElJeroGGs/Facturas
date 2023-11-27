@@ -66,9 +66,9 @@ public class controlproductos {
         panelEliminarProductos.setControl(this);
         JPanel panelEliminaProductos = (JPanel) panelEliminarProductos;
         // Configura el panel de añadir cliente en la ventanaClientes
-        this.ventanaProductos.setPanel(panelEliminaProductos);
-        
+        this.ventanaProductos.setPanel(panelEliminaProductos);  
         verProductos();
+
     }
 
     public void modificarCliente() {
@@ -101,6 +101,7 @@ public class controlproductos {
         switch (command) {
             case "ver":
                 verProductos();
+                this.ventanaProductos.setPanel(panelTablaProductos);
                 break;
             case "agregar":
                 addProducto();
