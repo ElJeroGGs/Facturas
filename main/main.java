@@ -14,11 +14,13 @@ public class main {
         facturas facturas = new facturas();
 
         vista.panelTablaClientes panelTablaClientes = new panelTablaClientes();
+        vista.panelEliminaClientes panelEliminaClientes = new panelEliminaClientes(panelTablaClientes);
         vista.panelTablaProductos panelTablaProductos = new panelTablaProductos();
 
         // Establecer las relaciones entre clases
         inicio.setControlVentanas(controlventanas);
 
+        panelEliminaClientes.setControl(controlclientes);
 
         clientes.setControlClientes(controlclientes);
         productos.setControlProductos(controlproductos);
