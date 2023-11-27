@@ -6,7 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import modelo.clientes;
+import modelo.cliente;
 import modelo.connection;
 import vista.panelAñadirCliente;
 import vista.panelEliminaClientes;
@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.JOptionPane;
 import javax.swing.JOptionPane;
 
 public class controlclientes {
@@ -126,5 +127,33 @@ public class controlclientes {
     
     public void setPanelAñadirClientes(vista.panelAñadirCliente panelAñadirCliente) {
        // this.panelAñadirCLienes = panelAñadirCliente;
+    }
+
+
+    public static void insertarCliente(cliente cliente) {
+        String sql = "INSERT INTO CLIENTE (RUT, NOMBRE, APELLIDO1, APELLIDO2, DOMICILIO, TELEFONO) VALUES (?, ?, ?, ?, ?, ?)";
+        connection conn;
+        
+        try (Connection connection = modelo.connection.openConnection();
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+
+            pstmt.setString(1, cliente.getRut().toUpperCase());
+            pstmt.setString(2, cliente.getNombre().toUpperCase());
+            pstmt.setString(3, cliente.getApellido1().toUpperCase());
+            pstmt.setString(4, cliente.getApellido2().toUpperCase());
+            pstmt.setString(5, cliente.getDomicilio().toUpperCase());
+            pstmt.setString(6, cliente.getTelefono().toUpperCase());
+
+            int rowsInserted = pstmt.executeUpdate();
+
+            if (rowsInserted > 0) {
+                JOptionPane.showMessageDialog(null, "Cliente insertado");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se pudo insertar el cliente");
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
     }
 }

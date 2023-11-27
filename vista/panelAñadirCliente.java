@@ -2,6 +2,8 @@ package vista;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -10,8 +12,11 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import control.controlclientes;
+import modelo.cliente;
+
     
-    public class panelAñadirCliente extends JPanel{
+    public class panelAñadirCliente extends JPanel implements ActionListener{
         JPanel panelPrincipal, panelContenido, panelBtn;
         JTextField txtRut, txtNombre, txtApellido1, txtApellido2, txtTelefono, txtDomicilio;
 
@@ -62,6 +67,7 @@ import javax.swing.border.EmptyBorder;
         lblTelefono.setHorizontalAlignment(JLabel.LEFT);
         
         btnEnviar = new JButton("Enviar Datos");
+        btnEnviar.addActionListener(this);
         btnEnviar.setPreferredSize(new Dimension(150, 30));
         
         panelPrincipal.add(titulo);
@@ -90,5 +96,20 @@ import javax.swing.border.EmptyBorder;
 
     public JPanel getPanel(){
         return this.panelPrincipal;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+        cliente nuevoCliente = new cliente();
+nuevoCliente.setRut(txtRut.getText());
+nuevoCliente.setNombre(txtNombre.getText());
+nuevoCliente.setApellido1(txtApellido1.getText());
+nuevoCliente.setApellido2(txtApellido2.getText());
+nuevoCliente.setDomicilio(txtDomicilio.getText());
+nuevoCliente.setTelefono(txtTelefono.getText());
+
+    controlclientes.insertarCliente(nuevoCliente);
+
     }
 }
