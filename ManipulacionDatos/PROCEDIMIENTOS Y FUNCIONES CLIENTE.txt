@@ -47,7 +47,7 @@ create or replace PROCEDURE pr_modificar_cliente_apellido1(
     BEGIN
         UPDATE  CLIENTE
             SET apellido1 = nuevoapellido1
-            WHERE rutEmpresa = rut;
+            WHERE rut = rutEmpresa;
     END pr_modificar_cliente_apellido1;
 
 ------------------------------------------------------------------------------------------------------------
@@ -59,7 +59,7 @@ create or replace PROCEDURE pr_modificar_cliente_apellido2(
     BEGIN
         UPDATE  CLIENTE
             SET apellido2 = nuevoapellido2
-            WHERE rutEmpresa = rut;
+            WHERE rut = rutEmpresa;
     END pr_modificar_cliente_apellido2;
 
 ------------------------------------------------------------------------------------------------------------
@@ -71,7 +71,7 @@ create or replace PROCEDURE pr_modificar_cliente_domicilio(
     BEGIN
         UPDATE  CLIENTE
             SET domicilio = nuevoDomicilio
-            WHERE rutEmpresa = rut;
+            WHERE rut = rutEmpresa;
     END pr_modificar_cliente_domicilio;
 
 ------------------------------------------------------------------------------------------------------------
@@ -83,7 +83,7 @@ create or replace PROCEDURE pr_modificar_cliente_telefono(
     BEGIN
         UPDATE  CLIENTE
             SET telefono = nuevotelefono
-            WHERE rutEmpresa = rut;
+            WHERE rut = rutEmpresa;
     END pr_modificar_cliente_telefono;
 
 ------------------------------------------------------------------------------------------------------------
