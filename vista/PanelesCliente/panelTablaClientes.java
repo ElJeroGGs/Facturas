@@ -1,4 +1,4 @@
-package vista;
+package vista.PanelesCliente;
 
 import java.awt.event.MouseAdapter;
 

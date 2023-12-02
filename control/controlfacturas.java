@@ -1,6 +1,10 @@
 package control;
 
 import java.awt.Font;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,38 +18,60 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import modelo.Venta;
 import modelo.connection;
-import vista.panelEliminaProductos;
-import vista.panelEliminarFactura;
-import vista.panelGenerarFactura;
+import vista.PanelesFactura.panelEliminarFactura;
+import vista.PanelesFactura.panelVentas;
+import vista.PanelesFactura.panelConsultarFactura;
+import vista.PanelesProducto.panelEliminaProductos;
+
 import java.sql.Types;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
 import javax.swing.JLabel;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 
 public class controlfacturas {
+
+    public controlfacturas() {
+        this.ultimoNumeroCodigo = leerUltimoNumeroCodigo();
+    }
+
+    private int ultimoNumeroCodigo;
     private vista.facturas ventanaFacturas;
-    private vista.panelTablaFactura panelTablaFactura;
+    private vista.PanelesFactura.panelTablaFactura panelTablaFactura;
 
     public void setVentanaFacturas(vista.facturas ventanaFacturas) {
         this.ventanaFacturas = ventanaFacturas;
     }
-    
-    public void verFacturas(){
-        JTable Tabla =  panelTablaFactura.getTabla();      
+
+    public void verFacturas() {
+        JTable Tabla = panelTablaFactura.getTabla();
 
         DefaultTableModel modeloTabla = (DefaultTableModel) Tabla.getModel();
         modeloTabla.setRowCount(0);
         connection conn;
         Connection connection = modelo.connection.openConnection();
         try {
-            
+
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM FACTURA");
             ResultSet resultSet = preparedStatement.executeQuery();
             int columnas = resultSet.getMetaData().getColumnCount();
 
-            while(resultSet.next()) {
+            while (resultSet.next()) {
                 Object[] fila = new Object[columnas];
-                for(int i = 0; i < columnas; i++) {
-                    fila[i] = resultSet.getObject(i + 1);}
+                for (int i = 0; i < columnas; i++) {
+                    fila[i] = resultSet.getObject(i + 1);
+                }
                 modeloTabla.addRow(fila);
             }
 
@@ -58,16 +84,45 @@ public class controlfacturas {
             e.printStackTrace();
         }
 
-         
     }
 
-    public void addFactura(){
-        JPanel panelAñadirFactura = new vista.panelAñadirFactura().getPanel();
-        // Configura el panel de añadir cliente en la ventanaClientes
-        this.ventanaFacturas.setPanel(panelAñadirFactura);
+    public void addFactura() {
+        List<modelo.cliente> clientes = new ArrayList<>();
+        List<modelo.producto> productos = new ArrayList<>(); // Add this line
+
+        try (Connection conexion = modelo.connection.openConnection()) { // Fix method name
+            String consultaClientes = "SELECT RUT, NOMBRE FROM CLIENTE";
+            Statement statementClientes = conexion.createStatement();
+            ResultSet resultadoClientes = statementClientes.executeQuery(consultaClientes);
+
+            while (resultadoClientes.next()) {
+                String nombreCliente = resultadoClientes.getString("nombre");
+                String rutCliente = resultadoClientes.getString("rut");
+                clientes.add(new modelo.cliente(rutCliente, nombreCliente)); // Fix constructor
+            }
+
+            String consultaProductos = "SELECT CODIGO, DESCRIPCION FROM producto";
+            Statement statementProductos = conexion.createStatement();
+            ResultSet resultadoProductos = statementProductos.executeQuery(consultaProductos);
+
+            while (resultadoProductos.next()) {
+                String nombreProducto = resultadoProductos.getString("descripcion");
+                String codigoProducto = resultadoProductos.getString("codigo");
+                productos.add(new modelo.producto(codigoProducto, nombreProducto)); // Fix constructor
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        panelVentas panelVentas = new panelVentas(productos);
+        vista.PanelesFactura.panelGenerarFactura panel = new vista.PanelesFactura.panelGenerarFactura(clientes,
+                panelVentas);
+        panel.setControl(this);
+        panel.setPanelVentas(panelVentas);
+        JPanel panelGenerarFactura = panel.getPanel();
+        this.ventanaFacturas.setPanel(panelGenerarFactura);
     }
 
-    public void eliminarFactura(){
+    public void eliminarFactura() {
         verFacturas();
         panelEliminarFactura panelEliminaFactura = new panelEliminarFactura(this.panelTablaFactura);
         panelEliminaFactura.setControl(this);
@@ -94,12 +149,10 @@ public class controlfacturas {
         eliminarFactura();
     }
 
-    
-
     public void hacer(String command) {
         switch (command) {
             case "generar":
-            generarFactura();
+                generarFactura();
                 break;
             case "agregar":
                 addFactura();
@@ -107,7 +160,7 @@ public class controlfacturas {
             case "eliminar":
                 eliminarFactura();
                 break;
-            
+
             default:
                 System.out.println("Comando inválido");
                 break;
@@ -116,15 +169,15 @@ public class controlfacturas {
 
     private void generarFactura() {
         verFacturas();
-        panelGenerarFactura panelGenerarFactura = new panelGenerarFactura(this.panelTablaFactura);
-        panelGenerarFactura.setControl(this);
-        JPanel panelGeneraFactura = (JPanel) panelGenerarFactura;
+        panelConsultarFactura panelConsultarFactura = new panelConsultarFactura(this.panelTablaFactura);
+        panelConsultarFactura.setControl(this);
+        JPanel panelGeneraFactura = (JPanel) panelConsultarFactura;
 
         this.ventanaFacturas.setPanel(panelGeneraFactura);
 
     }
 
-    public void setPanelTablaFactura(vista.panelTablaFactura panelTablaFactura) {
+    public void setPanelTablaFactura(vista.PanelesFactura.panelTablaFactura panelTablaFactura) {
         this.panelTablaFactura = panelTablaFactura;
     }
 
@@ -168,7 +221,8 @@ public class controlfacturas {
 
                 JPanel factura = new JPanel();
                 JTextArea textArea = new JTextArea(lines.toString());
-                Font font = new Font(Font.MONOSPACED, Font.PLAIN, 12).deriveFont(Font.BOLD); // Cambia "12" por el tamaño de fuente deseado
+                Font font = new Font(Font.MONOSPACED, Font.PLAIN, 12).deriveFont(Font.BOLD); // Cambia "12" por el
+                                                                                             // tamaño de fuente deseado
                 textArea.setFont(font);
                 textArea.setEditable(false);
                 factura.add(textArea);
@@ -181,4 +235,72 @@ public class controlfacturas {
             e.printStackTrace();
         }
     }
+
+    public void crearFactura(panelVentas panelVentas, String RUT) {
+
+        List<Venta> Venta = panelVentas.getVenta();
+        if (Venta.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "No se ha seleccionado ningun producto", "Aviso",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        } else {
+            try (Connection conexion = modelo.connection.openConnection()) {
+                String codigo = generarCodigo();
+
+                // Preparar la llamada al procedimiento almacenado
+                CallableStatement stmt = conexion.prepareCall("{call agregar_venta(?, ?, ?, ?)}");
+                for (Venta ventita : Venta) {
+                    // Establecer los parámetros del procedimiento almacenado
+                    stmt.setInt(1, ventita.getCantidad());
+                    stmt.setString(2, ventita.getCodigo());
+                    stmt.setString(3, codigo);
+                    stmt.setString(4, RUT);
+
+                    // Ejecutar el procedimiento almacenado
+                    stmt.execute();
+                }
+
+                // Display success message in a JDialog
+                JOptionPane.showMessageDialog(null, "Factura creada exitosamente", "Mensaje",
+                        JOptionPane.INFORMATION_MESSAGE);
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Error al crear la factura", "Error", JOptionPane.ERROR_MESSAGE);
+
+            }
+        }
+
+    }
+
+    public String generarCodigo() {
+        String codigo = "A" + ultimoNumeroCodigo;
+        escribirUltimoNumeroCodigo(++ultimoNumeroCodigo);
+        return codigo;
+    }
+
+    private void escribirUltimoNumeroCodigo(int ultimoNumeroCodigo) {
+        try {
+            FileWriter escritor = new FileWriter("ultimoNumeroCodigo.txt");
+            escritor.write(String.valueOf(ultimoNumeroCodigo));
+            escritor.close();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private int leerUltimoNumeroCodigo() {
+        try {
+            File archivo = new File("ultimoNumeroCodigo.txt");
+            if (archivo.exists()) {
+                Scanner lector = new Scanner(archivo);
+                if (lector.hasNextInt()) {
+                    return lector.nextInt();
+                }
+                lector.close();
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+        return 2300; // Valor por defecto si no se pudo leer el archivo
+    }
+
 }

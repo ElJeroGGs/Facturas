@@ -1,4 +1,4 @@
-package vista;
+package vista.PanelesProducto;
 
 import java.awt.Dimension;
 import java.awt.Font;
@@ -15,13 +15,13 @@ import javax.swing.border.EmptyBorder;
 import control.controlproductos;
 import modelo.producto;
 
-public class panelActualizaProducto extends JPanel implements ActionListener {
-
-    JLabel lblCodigo, lblPrecioUnitario, lblDescripcion, lblTitulo, txtCodigo;
-    JTextField  txtPrecioUnitario, txtCantidad;
+public class panelAñadirProducto extends JPanel implements ActionListener{
+    
+    JLabel lblCodigo, lblPrecioUnitario, lblDescripcion, lblTitulo;
+    JTextField txtCodigo, txtPrecioUnitario, txtCantidad;
     JPanel panelPrincipal, panelTitulo, panelContenido, panelBoton;
 
-      public panelActualizaProducto(String codigo) {
+    public panelAñadirProducto(){
         JButton btnEnviar;
 
         panelPrincipal = new JPanel(new GridLayout(3,1));
@@ -48,7 +48,7 @@ public class panelActualizaProducto extends JPanel implements ActionListener {
         lblDescripcion = new JLabel("Descripcion: ");
         lblDescripcion.setHorizontalAlignment(JLabel.LEFT);
 
-        txtCodigo = new JLabel(codigo);
+        txtCodigo = new JTextField();
         txtPrecioUnitario = new JTextField();
         txtCantidad = new JTextField();
 
@@ -78,12 +78,11 @@ public class panelActualizaProducto extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        producto nuevProductos = new producto();
+        nuevProductos.setCodigo(txtCodigo.getText());
+        nuevProductos.setDescripcion(txtCantidad.getText());
+        nuevProductos.setPrecio_unitario(txtPrecioUnitario.getText());
 
-        producto nuevoProducto = new producto();
-            nuevoProducto.setCodigo(txtCodigo.getText());
-            nuevoProducto.setDescripcion(txtCantidad.getText());
-            nuevoProducto.setPrecio_unitario(txtPrecioUnitario.getText());
-    controlproductos.ProductoRefresh(nuevoProducto);
-
+        controlproductos.insertarProductos(nuevProductos);
     }
 }

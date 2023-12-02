@@ -1,4 +1,4 @@
-package vista;
+package vista.PanelesCliente;
 
 import javax.swing.JButton;
 import javax.swing.JOptionPane;

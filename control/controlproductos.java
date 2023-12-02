@@ -7,9 +7,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import modelo.connection;
 import modelo.producto;
-import vista.panelEliminaProductos;
-import vista.panelModificaProducto;
-import vista.panelTablaProductos;
+import vista.PanelesProducto.panelEliminaProductos;
+import vista.PanelesProducto.panelModificaProducto;
+import vista.PanelesProducto.panelTablaProductos;
+
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
@@ -18,7 +19,7 @@ import javax.swing.table.DefaultTableModel;
 public class controlproductos {
 
       private vista.productos ventanaProductos;
-      private vista.panelTablaProductos panelTablaProductos;
+      private vista.PanelesProducto.panelTablaProductos panelTablaProductos;
 
         public void setProductosVentana(vista.productos ventana) {
             this.ventanaProductos = ventana;
@@ -57,7 +58,7 @@ public class controlproductos {
          
     }
     public void addProducto() {
-        JPanel panelAñadirProducto = new vista.panelAñadirProducto().getPanel();
+        JPanel panelAñadirProducto = new vista.PanelesProducto.panelAñadirProducto().getPanel();
         // Configura el panel de añadir cliente en la ventanaClientes
         this.ventanaProductos.setPanel(panelAñadirProducto);
     }
@@ -73,7 +74,7 @@ public class controlproductos {
     }
 
     public void ModificarProducto() {
-        panelModificaProducto panelModificaProducto = new vista.panelModificaProducto(this.panelTablaProductos);
+        panelModificaProducto panelModificaProducto = new vista.PanelesProducto.panelModificaProducto(this.panelTablaProductos);
         panelModificaProducto.setControl(this);
         // Configura el panel de añadir cliente en la ventanaClientes
         this.ventanaProductos.setPanel(panelModificaProducto);
@@ -124,11 +125,11 @@ public class controlproductos {
         }
     }
 
-    public void setPanelTablaProductos(vista.panelTablaProductos panelTablaProductos) {
+    public void setPanelTablaProductos(vista.PanelesProducto.panelTablaProductos panelTablaProductos) {
         this.panelTablaProductos = panelTablaProductos;
     }
     
-    public void setPanelAñadirProducto(vista.panelAñadirProducto panelAñadirProducto) {
+    public void setPanelAñadirProducto(vista.PanelesProducto.panelAñadirProducto panelAñadirProducto) {
        // this.panelAñadirProducto = panelAñadirProducto;
     }
     
@@ -159,7 +160,7 @@ public class controlproductos {
      
 
     public void modificadoProducto(String selectedRecord) {
-        JPanel panel = new vista.panelActualizaProducto(selectedRecord).getPanel();
+        JPanel panel = new vista.PanelesProducto.panelActualizaProducto(selectedRecord).getPanel();
 
         this.ventanaProductos.setPanel(panel);
 

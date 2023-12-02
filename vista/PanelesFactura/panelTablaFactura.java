@@ -1,4 +1,4 @@
-package vista;
+package vista.PanelesFactura;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;

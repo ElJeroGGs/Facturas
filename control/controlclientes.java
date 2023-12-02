@@ -8,10 +8,11 @@ import java.sql.SQLException;
 
 import modelo.cliente;
 import modelo.connection;
-import vista.panelActualizaCliente;
-import vista.panelAñadirCliente;
-import vista.panelEliminaClientes;
-import vista.panelModificaCliente;
+import vista.PanelesCliente.panelActualizaCliente;
+import vista.PanelesCliente.panelAñadirCliente;
+import vista.PanelesCliente.panelEliminaClientes;
+import vista.PanelesCliente.panelModificaCliente;
+
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -22,7 +23,7 @@ import javax.swing.JOptionPane;
 public class controlclientes {
 
       private vista.clientes ventanaClientes;
-      private vista.panelTablaClientes panelTablaClientes;
+      private vista.PanelesCliente.panelTablaClientes panelTablaClientes;
 
         public void setClientesVentana(vista.clientes ventana) {
             this.ventanaClientes = ventana;
@@ -58,7 +59,7 @@ public class controlclientes {
 
     }
     public void addCliente() {
-        JPanel panelAñadirCliente = new vista.panelAñadirCliente().getPanel();
+        JPanel panelAñadirCliente = new vista.PanelesCliente.panelAñadirCliente().getPanel();
         // Configura el panel de añadir cliente en la ventanaClientes
         this.ventanaClientes.setPanel(panelAñadirCliente);
     }
@@ -126,11 +127,11 @@ public class controlclientes {
         }
     }
 
-    public void setPanelTablaClientes(vista.panelTablaClientes panelTablaClientes) {
+    public void setPanelTablaClientes(vista.PanelesCliente.panelTablaClientes panelTablaClientes) {
         this.panelTablaClientes = panelTablaClientes;
     }
     
-    public void setPanelAñadirClientes(vista.panelAñadirCliente panelAñadirCliente) {
+    public void setPanelAñadirClientes(vista.PanelesCliente.panelAñadirCliente panelAñadirCliente) {
        // this.panelAñadirCLienes = panelAñadirCliente;
     }
 
@@ -165,7 +166,7 @@ public class controlclientes {
     }
     public void modificadoCliente(String selectedRecord) {
 
- JPanel panel = new vista.panelActualizaCliente(selectedRecord).getPanel();
+ JPanel panel = new vista.PanelesCliente.panelActualizaCliente(selectedRecord).getPanel();
 
         this.ventanaClientes.setPanel(panel);
     }

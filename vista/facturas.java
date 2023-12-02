@@ -4,7 +4,6 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import control.controlclientes;
 import control.controlfacturas;
 import control.controlventanas; 
 import java.awt.Font;
@@ -45,18 +44,18 @@ public class facturas extends JFrame implements ActionListener{
                         label.setHorizontalAlignment(JLabel.CENTER); // Centrar el texto
                         panelBotones.add(label);
 
+                        // Añadir botón "Añadir factura"
+                        JButton btnAddFactura = new JButton("Nueva factura");
+                        btnAddFactura.setActionCommand("agregar");
+                        btnAddFactura.addActionListener(this);                        
+                        panelBotones.add(btnAddFactura);
+
                         // Añadir botón "Ver facturas"
-                        JButton btnVerFacturas = new JButton("ver Factura");
+                        JButton btnVerFacturas = new JButton("Ver Facturas");
                         btnVerFacturas.setActionCommand("generar");
                         btnVerFacturas.addActionListener(this);
                         panelBotones.add(btnVerFacturas);
 
-                        // Añadir botón "Añadir factura"
-                        JButton btnAddFactura = new JButton("Añadir factura");
-                        btnAddFactura.setActionCommand("agregar");
-                        btnAddFactura.addActionListener(this);                        
-                        panelBotones.add(btnAddFactura);
-  
 
                         // Añadir botón "Eliminar factura"
                         JButton btnEliminarFactura = new JButton("Eliminar factura");
@@ -71,6 +70,8 @@ public class facturas extends JFrame implements ActionListener{
                         // Panel adicional a la derecha
                         this.panelExtra = new JScrollPane();
                         add(this.panelExtra);
+                        
+                        this.pack();
                         // Centrar la ventana en la pantalla
                         setLocationRelativeTo(null);
                     }
@@ -94,12 +95,20 @@ public class facturas extends JFrame implements ActionListener{
                         panelExtra.setViewportView(scrollPane); // Establecer el nuevo JScrollPane como la vista del JScrollPane existente
                         panelExtra.revalidate(); // Recalcular el layout de panelExtra
                         panelExtra.repaint(); // Redibujar panelExtra
+                        
+                        //Acomoda la ventana 
+                        this.pack();
+                        setLocationRelativeTo(null);
                     }
 
                     public void setPanel(JPanel newPanel) {
                         panelExtra.setViewportView(newPanel); // Establecer el nuevo JPanel como la vista del JScrollPane
                         panelExtra.revalidate(); // Recalcular el layout de panelExtra
                         panelExtra.repaint(); // Redibujar panelExtra
+                        
+                        //Acomoda la ventana 
+                        this.pack();
+                        setLocationRelativeTo(null);
                     }
 
                     

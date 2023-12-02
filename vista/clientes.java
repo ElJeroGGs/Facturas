@@ -55,17 +55,17 @@ import java.sql.SQLException;
                         label.setHorizontalAlignment(JLabel.CENTER); // Centrar el texto
                         panelBotones.add(label);
 
-                        // Añadir botón "Ver clientes"
-                        JButton btnVerClientes = new JButton("Ver clientes");
-                        btnVerClientes.setActionCommand("ver");
-                        btnVerClientes.addActionListener(this);
-                        panelBotones.add(btnVerClientes);
-
                         // Añadir botón "Añadir cliente"
                         JButton btnAddCliente = new JButton("Añadir cliente");
                         btnAddCliente.setActionCommand("agregar");
                         btnAddCliente.addActionListener(this);
                         panelBotones.add(btnAddCliente);
+
+                        // Añadir botón "Ver clientes"
+                        JButton btnVerClientes = new JButton("Ver clientes");
+                        btnVerClientes.setActionCommand("ver");
+                        btnVerClientes.addActionListener(this);
+                        panelBotones.add(btnVerClientes);
 
                         // Añadir botón "Eliminar cliente"
                         JButton btnEliminarCliente = new JButton("Eliminar cliente");
@@ -84,7 +84,9 @@ import java.sql.SQLException;
                         // Panel adicional a la derecha
                         this.panelExtra = new JScrollPane();
                         add(this.panelExtra);
-                        // Centrar la ventana en la pantalla
+                        
+                        //Acomoda la ventana 
+                        this.pack();
                         setLocationRelativeTo(null);
 
                     }
@@ -108,12 +110,20 @@ import java.sql.SQLException;
                         panelExtra.setViewportView(scrollPane); // Establecer el nuevo JScrollPane como la vista del JScrollPane existente
                         panelExtra.revalidate(); // Recalcular el layout de panelExtra
                         panelExtra.repaint(); // Redibujar panelExtra
+
+                        //Acomoda la ventana 
+                        this.pack();
+                        setLocationRelativeTo(null);
                     }
 
                     public void setPanel(JPanel newPanel) {
                         panelExtra.setViewportView(newPanel); // Establecer el nuevo JPanel como la vista del JScrollPane
                         panelExtra.revalidate(); // Recalcular el layout de panelExtra
                         panelExtra.repaint(); // Redibujar panelExtra
+
+                        //Acomoda la ventana 
+                        this.pack();
+                        setLocationRelativeTo(null);
                     }
 
                 }

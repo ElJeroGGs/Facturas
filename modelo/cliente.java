@@ -8,6 +8,13 @@ public class cliente {
     private String domicilio;
     private String telefono;
 
+    public cliente(){}
+
+public cliente(String rutCliente, String nombreCliente) {
+        this.rut = rutCliente;
+        this.nombre = nombreCliente;
+    }
+    
     public void setRut(String rut) {
     this.rut = rut;
 }

@@ -1,4 +1,4 @@
-package vista;
+package vista.PanelesProducto;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -12,29 +12,29 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 
-import control.controlclientes;
-import control.controlfacturas;
+import control.controlproductos;
 
-public class panelEliminarFactura extends JPanel implements ActionListener{
-    private controlfacturas controlfacturas;
-    String selectedRecord;
+public class panelEliminaProductos extends JPanel implements ActionListener{
 
-    public panelEliminarFactura(panelTablaFactura panelTablaFactura){
+private controlproductos controlproductos;
+String selectedRecord;
+
+    public panelEliminaProductos(panelTablaProductos panelTablaProductos) {
         this.setLayout(new BorderLayout());
-
-        JPanel contentPanel = new JPanel(new GridLayout(2, 1)); 
-        contentPanel.add(panelTablaFactura);
-
+        
+        JPanel contentPanel = new JPanel(new GridLayout(2, 1)); // Use GridLayout with 2 rows and 1 column
+        contentPanel.add(panelTablaProductos);
+        
         JPanel buttonPanel = new JPanel();
         JButton eliminarButton = new JButton("Eliminar");
         eliminarButton.addActionListener(this);
-
+        
         buttonPanel.add(eliminarButton);
         contentPanel.add(buttonPanel);
         this.add(contentPanel, BorderLayout.CENTER);
 
         //Comportamiento del MouseListener
-        setupMouseListener(panelTablaFactura.getTabla());
+        setupMouseListener(panelTablaProductos.getTabla());
     }
 
     private void setupMouseListener(JTable paneltabla) {
@@ -43,28 +43,30 @@ public class panelEliminarFactura extends JPanel implements ActionListener{
             public void mouseClicked(MouseEvent e) {
                 int row = paneltabla.rowAtPoint(e.getPoint());
                 if (row >= 0) {
-                    selectedRecord = (String) paneltabla.getModel().getValueAt(row, 0);
+                    selectedRecord = (String) paneltabla.getModel().getValueAt(row, 0); // Guardar el primer dato del registro seleccionado
                 }
             }
         });
     }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (selectedRecord == null) {
-            // Mostrar ventana que diga "Selecciona una factura"
-            JOptionPane.showMessageDialog(this, "Selecciona una factura", "Error", JOptionPane.ERROR_MESSAGE);
+            // Show a window with the message "Selecciona un registro"
+            JOptionPane.showMessageDialog(this, "Selecciona un registro");
         } else {
-            controlfacturas.borradoFactura(selectedRecord);
+            // Print the selected record and perform the deletion
+            System.out.println("Registro seleccionado: " + selectedRecord);
+            controlproductos.borradoProducto(selectedRecord);
         }
     }
 
-
-    public void setControl(controlfacturas controlfacturas) {
-        this.controlfacturas = controlfacturas;
+    public void setControl(controlproductos controlproductos) {
+        this.controlproductos = controlproductos;
     }
 
     public JPanel getPanel() {
         return this.getPanel();
     }
 
-}
+    }

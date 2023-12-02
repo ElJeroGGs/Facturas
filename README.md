@@ -1,7 +1,7 @@
 # Facturas
 LA COMPU S.A., una empresa minorista de cómputo, desea manejar sus facturas mediante un sistema de información.
 
-Actualmente, las facturas (Fig. 1) se solicitan a la imprenta, quien las entrega con un número de factura impreso en un rango definido, por ejemplo, de la A2300 a la A3500. El RUT representa el Registro Único Tributario o RFC (Registro Federal de Contribuyente). El dato referente a Cons. Final, aunque sigue apareciendo en la factura, no es utilizado. Cuando un cliente adquiere por ejemplo uno más artículos, se llena a mano la factura al momento de pagar.
+Actualmente, las facturas (Fig. 1) se solicitan a la imprenta, quien las entrega con un número de factura impreso en un rango definido, por ejemplo, de la A2300 a la A3500. El RUT representa el Registro Único Tributario o RFC (Registro Federal de Contribuyente). El dato referente a Cons. Final, aunque sigue apareciendo en la factura, no es utilizado. Cuando un cliente adquiere por ejemplo uno o más artículos, se llena a mano la factura al momento de pagar.
 
 
 ## Fig. 1. Ejemplo de Factura sin datos
@@ -46,7 +46,7 @@ Como primera etapa y como parte del sistema de información, se modelará, dise�
     IVA: 1,687.80  
     Total: $12,939.79  
                                          
-- [ ] Aplicación cliente-servidor (Java-Oracle) que incluya el CRUD para al menos una tabla, y la generación de la factura 
+- [x] Aplicación cliente-servidor (Java-Oracle) que incluya el CRUD para al menos una tabla, y la generación de la factura 
 
 ## El modelo lógico a utilizar es el siguiente
 <p align="center">
@@ -56,3 +56,5 @@ Como primera etapa y como parte del sistema de información, se modelará, dise�
 
 
 III. Con base en los puntos anteriores, elabora los modelos lógico, relacional y físico de la base de datos y construye los programas o scripts que incluyan DDL, DML, transacciones y objetos para crear y manejar la base datos. Para cada una de los scripts, indica que actividad o necesidad apoya.
+
+### El proyecto se entrego sin la pestaña de factura funcionando al 100%, sin embargo, me sabía mal dejarlo a medias, así que agregaré las funcionalidades que hicieron falta, y quizá alguún detalle extra - Jero

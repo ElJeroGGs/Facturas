@@ -1,5 +1,10 @@
 package main;
 import vista.*;
+import vista.PanelesCliente.panelEliminaClientes;
+import vista.PanelesCliente.panelModificaCliente;
+import vista.PanelesCliente.panelTablaClientes;
+import vista.PanelesProducto.panelEliminaProductos;
+import vista.PanelesProducto.panelTablaProductos;
 import control.*;
 public class main {
     public static void main(String[] args) {
@@ -14,15 +19,16 @@ public class main {
         productos productos = new productos();
         facturas facturas = new facturas();
 
-        vista.panelTablaClientes panelTablaClientes = new panelTablaClientes();
-        vista.panelEliminaClientes panelEliminaClientes = new panelEliminaClientes(panelTablaClientes);
+        vista.PanelesCliente.panelTablaClientes panelTablaClientes = new panelTablaClientes();
+        vista.PanelesCliente.panelEliminaClientes panelEliminaClientes = new panelEliminaClientes(panelTablaClientes);
+        vista.PanelesCliente.panelModificaCliente panelModificaCliente = new panelModificaCliente(panelTablaClientes);
 
-        vista.panelModificaCliente panelModificaCliente = new panelModificaCliente(panelTablaClientes);
-        vista.panelTablaProductos panelTablaProductos = new panelTablaProductos();
-        vista.panelEliminaProductos panelEliminaProductos = new panelEliminaProductos(panelTablaProductos);
+        vista.PanelesProducto.panelTablaProductos panelTablaProductos = new panelTablaProductos();
+        vista.PanelesProducto.panelEliminaProductos panelEliminaProductos = new panelEliminaProductos(panelTablaProductos);
 
-        vista.panelTablaFactura panelTablaFactura = new vista.panelTablaFactura();
-        vista.panelEliminarFactura panelEliminarFactura = new vista.panelEliminarFactura(panelTablaFactura);
+        vista.PanelesFactura.panelTablaFactura panelTablaFactura = new vista.PanelesFactura.panelTablaFactura();
+        vista.PanelesFactura.panelEliminarFactura panelEliminarFactura = new vista.PanelesFactura.panelEliminarFactura(panelTablaFactura);
+        
 
         // Establecer las relaciones entre clases
         inicio.setControlVentanas(controlventanas);

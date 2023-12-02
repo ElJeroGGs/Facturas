@@ -1,35 +1,36 @@
-package vista;
+package vista.PanelesProducto;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 
+import org.w3c.dom.events.MouseEvent;
+
+import control.controlclientes;
 import control.controlproductos;
 
-public class panelEliminaProductos extends JPanel implements ActionListener{
-
-private controlproductos controlproductos;
+public class panelModificaProducto extends JPanel implements ActionListener{
 String selectedRecord;
+private control.controlproductos controlproductos;
 
-    public panelEliminaProductos(panelTablaProductos panelTablaProductos) {
+    public panelModificaProducto(panelTablaProductos panelTablaProductos){
         this.setLayout(new BorderLayout());
         
         JPanel contentPanel = new JPanel(new GridLayout(2, 1)); // Use GridLayout with 2 rows and 1 column
         contentPanel.add(panelTablaProductos);
         
         JPanel buttonPanel = new JPanel();
-        JButton eliminarButton = new JButton("Eliminar");
-        eliminarButton.addActionListener(this);
+        JButton modificarButton = new JButton("Modificar");
+        modificarButton.addActionListener(this);
         
-        buttonPanel.add(eliminarButton);
+        buttonPanel.add(modificarButton);
         contentPanel.add(buttonPanel);
         this.add(contentPanel, BorderLayout.CENTER);
 
@@ -40,7 +41,7 @@ String selectedRecord;
     private void setupMouseListener(JTable paneltabla) {
         paneltabla.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
+            public void mouseClicked(java.awt.event.MouseEvent e) {
                 int row = paneltabla.rowAtPoint(e.getPoint());
                 if (row >= 0) {
                     selectedRecord = (String) paneltabla.getModel().getValueAt(row, 0); // Guardar el primer dato del registro seleccionado
@@ -51,22 +52,20 @@ String selectedRecord;
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
         if (selectedRecord == null) {
-            // Show a window with the message "Selecciona un registro"
-            JOptionPane.showMessageDialog(this, "Selecciona un registro");
+            JOptionPane.showMessageDialog(this, "Debes escoger un cliente");
         } else {
-            // Print the selected record and perform the deletion
-            System.out.println("Registro seleccionado: " + selectedRecord);
-            controlproductos.borradoProducto(selectedRecord);
+            controlproductos.modificadoProducto(selectedRecord);
         }
     }
 
-    public void setControl(controlproductos controlproductos) {
+public void setControl(controlproductos controlproductos) {
         this.controlproductos = controlproductos;
     }
 
     public JPanel getPanel() {
         return this.getPanel();
     }
-
-    }
+    
+}

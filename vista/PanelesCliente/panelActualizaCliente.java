@@ -1,4 +1,5 @@
-package vista;
+package vista.PanelesCliente;
+
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -6,7 +7,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -15,14 +15,16 @@ import javax.swing.border.EmptyBorder;
 import control.controlclientes;
 import modelo.cliente;
 
-    
-    public class panelAñadirCliente extends JPanel implements ActionListener{
-        JPanel panelPrincipal, panelContenido, panelBtn;
-        JTextField txtRut, txtNombre, txtApellido1, txtApellido2, txtTelefono, txtDomicilio;
+public class panelActualizaCliente extends JPanel implements ActionListener {
 
-        public panelAñadirCliente(){
+    JPanel panelPrincipal, panelContenido, panelBtn;
+    JTextField  txtNombre, txtApellido1, txtApellido2, txtTelefono, txtDomicilio;
+    String rut;
+
+      public panelActualizaCliente(String rut) {
+        this.rut = rut;
         
-        JLabel lblRut, lblNombre, lblApellido1, lblApellido2, lblTelefono, lblDomicilio, titulo;
+        JLabel lblRut, lblNombre, lblApellido1, lblApellido2, lblTelefono, lblDomicilio, titulo, txtRut;
         
         JButton btnEnviar;
 
@@ -35,14 +37,14 @@ import modelo.cliente;
         panelBtn = new JPanel();
         panelContenido.setBorder(new EmptyBorder(0,10,10,10));
        
-        txtRut = new JTextField();
+        txtRut = new JLabel(rut);
         txtNombre = new JTextField();
         txtApellido1 = new JTextField();
         txtApellido2 = new JTextField();
         txtTelefono = new JTextField();
         txtDomicilio = new JTextField();
 
-        titulo = new JLabel("AÑADIR CLIENTES");
+        titulo = new JLabel("ACTUALIZAR CLIENTES");
         titulo.setHorizontalAlignment(JLabel.CENTER);
         
         Font boldFontTitulo = new Font(titulo.getFont().getFontName(), Font.BOLD, 25); 
@@ -66,7 +68,7 @@ import modelo.cliente;
         lblTelefono = new JLabel("Telefono: ");
         lblTelefono.setHorizontalAlignment(JLabel.LEFT);
         
-        btnEnviar = new JButton("Enviar Datos");
+        btnEnviar = new JButton("Actualizar Datos");
         btnEnviar.addActionListener(this);
         btnEnviar.setPreferredSize(new Dimension(150, 30));
         
@@ -101,15 +103,15 @@ import modelo.cliente;
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        cliente nuevoCliente = new cliente();
-nuevoCliente.setRut(txtRut.getText());
+    modelo.cliente nuevoCliente = new cliente();
+nuevoCliente.setRut(rut);
 nuevoCliente.setNombre(txtNombre.getText());
 nuevoCliente.setApellido1(txtApellido1.getText());
 nuevoCliente.setApellido2(txtApellido2.getText());
 nuevoCliente.setDomicilio(txtDomicilio.getText());
 nuevoCliente.setTelefono(txtTelefono.getText());
 
-    controlclientes.insertarCliente(nuevoCliente);
+    controlclientes.ClienteRefresh(nuevoCliente);
 
     }
 }

@@ -1,4 +1,4 @@
-package vista;
+package vista.PanelesFactura;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -17,11 +17,11 @@ import org.w3c.dom.events.MouseEvent;
 
 import control.controlfacturas;
 
-public class panelGenerarFactura extends JPanel implements ActionListener{
+public class panelConsultarFactura extends JPanel implements ActionListener{
 private controlfacturas controlfacturas;
     String selectedRecord;
 
-    public panelGenerarFactura(panelTablaFactura panelTablaFactura){
+    public panelConsultarFactura(panelTablaFactura panelTablaFactura){
         this.setLayout(new BorderLayout());
 
         JPanel contentPanel = new JPanel(new GridLayout(2, 1)); 

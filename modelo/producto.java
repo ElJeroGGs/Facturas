@@ -6,6 +6,14 @@ public class producto {
     private String descripcion;
     private String precio_unitario;
 
+    public producto(){
+
+    }
+
+    public producto(String codigoProducto, String nombreProducto) {
+        this.codigo = codigoProducto;
+        this.descripcion = nombreProducto;
+    }
     public String getCodigo() {
         return codigo;
     }
