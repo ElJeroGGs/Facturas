@@ -1,5 +1,6 @@
 package vista.PanelesFactura;
 
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,39 +13,52 @@ import javax.swing.SpinnerNumberModel;
 
 import modelo.Venta;
 import modelo.producto;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 
 public class panelVentas extends JPanel {
+        public panelVentas(List<producto> productos) {
+            int espacioVertical = 10;
+            int espaciohorizontal = 20;
+            this.setLayout(new GridBagLayout());
+            GridBagConstraints gbc = new GridBagConstraints();
+            gbc.insets = new Insets(espacioVertical, espaciohorizontal, espacioVertical, espaciohorizontal);
 
-    public panelVentas(List<producto> productos) {
-        this.setLayout(new GridLayout(productos.size(), 2));
+            // Agregar etiquetas con los códigos de los productos al this
+            for (int i = 0; i < productos.size(); i++) {
+                producto p = productos.get(i);
+                JLabel lblCodigoProducto = new JLabel(p.getCodigo() + " - " + p.getDescripcion());
+                gbc.gridx = 0;
+                gbc.gridy = i;
+                gbc.anchor = GridBagConstraints.WEST; // Alinear a la izquierda
+                this.add(lblCodigoProducto, gbc);
 
-        // Agregar etiquetas con los códigos de los productos al this
-        for (producto p : productos) {
-            JLabel lblCodigoProducto = new JLabel(p.getCodigo());
-            this.add(lblCodigoProducto);
-
-            JSpinner spinner = new JSpinner(new SpinnerNumberModel(0, 0, 99, 1));
-            this.add(spinner);
+                JSpinner spinner = new JSpinner(new SpinnerNumberModel(0, 0, 99, 1));
+                gbc.gridx = 1;
+                gbc.gridy = i;
+                gbc.anchor = GridBagConstraints.EAST; // Alinear a la derecha
+                this.add(spinner, gbc);
+            }
+            this.setBorder(new EmptyBorder(0, 10, 0, 10));
         }
-        this.setBorder(new EmptyBorder(0, 10, 0, 10));
-    }
 
-    public JPanel getPanel() {
-        return this;
-    }
+        public JPanel getPanel() {
+            return this;
+        }
 
-    public List<Venta> getVenta() {
-        List<Venta> lista = new ArrayList<>();
-        for (int i = 0; i < this.getComponentCount(); i++) {
-            if (i % 2 == 0) {
-                JLabel lblCodigoProducto = (JLabel) this.getComponent(i);
-                JSpinner spinner = (JSpinner) this.getComponent(i + 1);
-                if ((int) spinner.getValue() > 0) {
-                    lista.add(new Venta(null, lblCodigoProducto.getText(), (int) spinner.getValue()));
+        public List<Venta> getVenta() {
+            List<Venta> lista = new ArrayList<>();
+            for (int i = 0; i < this.getComponentCount(); i++) {
+                if (i % 2 == 0) {
+                    JLabel lblCodigoProducto = (JLabel) this.getComponent(i);
+                    JSpinner spinner = (JSpinner) this.getComponent(i + 1);
+                    if ((int) spinner.getValue() > 0) {
+                        lista.add(new Venta(null, lblCodigoProducto.getText(), (int) spinner.getValue()));
+                    }
                 }
             }
+            return lista;
         }
-        return lista;
-    }
 
-}
+        }
