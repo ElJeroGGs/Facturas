@@ -1,7 +1,5 @@
 package vista.PanelesFactura;
 
-import java.awt.Dimension;
-import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +27,7 @@ public class panelVentas extends JPanel {
             for (int i = 0; i < productos.size(); i++) {
                 producto p = productos.get(i);
                 JLabel lblCodigoProducto = new JLabel(p.getCodigo() + " - " + p.getDescripcion());
+                lblCodigoProducto.setName(p.getCodigo());
                 gbc.gridx = 0;
                 gbc.gridy = i;
                 gbc.anchor = GridBagConstraints.WEST; // Alinear a la izquierda
@@ -43,22 +42,22 @@ public class panelVentas extends JPanel {
             this.setBorder(new EmptyBorder(0, 10, 0, 10));
         }
 
-        public JPanel getPanel() {
-            return this;
-        }
+    public JPanel getPanel() {
+        return this;
+    }
 
-        public List<Venta> getVenta() {
-            List<Venta> lista = new ArrayList<>();
-            for (int i = 0; i < this.getComponentCount(); i++) {
-                if (i % 2 == 0) {
-                    JLabel lblCodigoProducto = (JLabel) this.getComponent(i);
-                    JSpinner spinner = (JSpinner) this.getComponent(i + 1);
-                    if ((int) spinner.getValue() > 0) {
-                        lista.add(new Venta(null, lblCodigoProducto.getText(), (int) spinner.getValue()));
-                    }
+    public List<Venta> getVenta() {
+        List<Venta> lista = new ArrayList<>();
+        for (int i = 0; i < this.getComponentCount(); i++) {
+            if (i % 2 == 0) {
+                JLabel lblCodigoProducto = (JLabel) this.getComponent(i);
+                JSpinner spinner = (JSpinner) this.getComponent(i + 1);
+                if ((int) spinner.getValue() > 0) {
+                    lista.add(new Venta(null, lblCodigoProducto.getName(), (int) spinner.getValue()));
                 }
             }
-            return lista;
         }
+        return lista;
+    }
 
-        }
+}
