@@ -63,7 +63,7 @@ public class controlfacturas {
         Connection connection = modelo.connection.openConnection();
         try {
 
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM FACTURA ORDER BY RUT");
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM FACTURA ORDER BY NUMERO");
             ResultSet resultSet = preparedStatement.executeQuery();
             int columnas = resultSet.getMetaData().getColumnCount();
 
