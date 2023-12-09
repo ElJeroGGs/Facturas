@@ -57,4 +57,4 @@ Como primera etapa y como parte del sistema de información, se modelará, dise�
 
 III. Con base en los puntos anteriores, elabora los modelos lógico, relacional y físico de la base de datos y construye los programas o scripts que incluyan DDL, DML, transacciones y objetos para crear y manejar la base datos. Para cada una de los scripts, indica que actividad o necesidad apoya.
 
-### El proyecto se entrego sin la pestaña de factura funcionando al 100%, sin embargo, me sabía mal dejarlo a medias, así que agregaré las funcionalidades que hicieron falta, y quizá alguún detalle extra - Jero
+### El proyecto se entrego sin la pestaña de factura funcionando al 100%, sin embargo, me sabía mal dejarlo a medias, así que terminé de pulir y hacer la pestaña de facturas - Jero

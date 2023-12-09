@@ -63,7 +63,7 @@ public class controlfacturas {
         Connection connection = modelo.connection.openConnection();
         try {
 
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM FACTURA");
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM FACTURA ORDER BY NUMERO");
             ResultSet resultSet = preparedStatement.executeQuery();
             int columnas = resultSet.getMetaData().getColumnCount();
 
@@ -264,7 +264,7 @@ public class controlfacturas {
                 JOptionPane.showMessageDialog(null, "Factura creada exitosamente", "Mensaje",
                         JOptionPane.INFORMATION_MESSAGE);
             } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, "Error al crear la factura", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 
             }
         }
